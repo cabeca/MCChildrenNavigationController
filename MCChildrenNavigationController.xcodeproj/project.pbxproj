@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24A5F25C184298D80027A226 /* MCArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F255184298D80027A226 /* MCArrayDataSource.m */; };
+		24A5F25D184298D80027A226 /* MCChildrenNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F258184298D80027A226 /* MCChildrenNavigationController.m */; };
+		24A5F25E184298D80027A226 /* MCChildrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F25A184298D80027A226 /* MCChildrenViewController.m */; };
 		24F607491841084F00841DFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F607481841084F00841DFC /* Foundation.framework */; };
 		24F6074B1841084F00841DFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6074A1841084F00841DFC /* CoreGraphics.framework */; };
 		24F6074D1841084F00841DFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6074C1841084F00841DFC /* UIKit.framework */; };
@@ -22,9 +25,6 @@
 		24F6077A184108C000841DFC /* MCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F60778184108C000841DFC /* MCMainViewController.m */; };
 		24F6077B184108C000841DFC /* MCMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24F60779184108C000841DFC /* MCMainViewController.xib */; };
 		24F6077E18410AC900841DFC /* MCTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6077D18410AC900841DFC /* MCTreeNode.m */; };
-		24F60781184116D200841DFC /* MCChildrenNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F60780184116D200841DFC /* MCChildrenNavigationController.m */; };
-		24F6078418411AC100841DFC /* MCArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6078318411AC100841DFC /* MCArrayDataSource.m */; };
-		24F60787184125D400841DFC /* MCChildrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F60786184125D400841DFC /* MCChildrenViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		244375F918422A01005ED7DB /* MCChildrenViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCChildrenViewControllerDelegate.h; sourceTree = "<group>"; };
+		24A5F254184298D80027A226 /* MCArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCArrayDataSource.h; sourceTree = "<group>"; };
+		24A5F255184298D80027A226 /* MCArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCArrayDataSource.m; sourceTree = "<group>"; };
+		24A5F256184298D80027A226 /* MCChildrenCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCChildrenCollection.h; sourceTree = "<group>"; };
+		24A5F257184298D80027A226 /* MCChildrenNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCChildrenNavigationController.h; sourceTree = "<group>"; };
+		24A5F258184298D80027A226 /* MCChildrenNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCChildrenNavigationController.m; sourceTree = "<group>"; };
+		24A5F259184298D80027A226 /* MCChildrenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCChildrenViewController.h; sourceTree = "<group>"; };
+		24A5F25A184298D80027A226 /* MCChildrenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCChildrenViewController.m; sourceTree = "<group>"; };
+		24A5F25B184298D80027A226 /* MCChildrenViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCChildrenViewControllerDelegate.h; sourceTree = "<group>"; };
 		24F607451841084E00841DFC /* MCChildrenNavigationController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCChildrenNavigationController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F607481841084F00841DFC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24F6074A1841084F00841DFC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -60,13 +67,6 @@
 		24F60779184108C000841DFC /* MCMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MCMainViewController.xib; sourceTree = "<group>"; };
 		24F6077C18410AC900841DFC /* MCTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCTreeNode.h; sourceTree = "<group>"; };
 		24F6077D18410AC900841DFC /* MCTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCTreeNode.m; sourceTree = "<group>"; };
-		24F6077F184116D200841DFC /* MCChildrenNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCChildrenNavigationController.h; sourceTree = "<group>"; };
-		24F60780184116D200841DFC /* MCChildrenNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCChildrenNavigationController.m; sourceTree = "<group>"; };
-		24F6078218411AC100841DFC /* MCArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCArrayDataSource.h; sourceTree = "<group>"; };
-		24F6078318411AC100841DFC /* MCArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCArrayDataSource.m; sourceTree = "<group>"; };
-		24F60785184125D400841DFC /* MCChildrenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCChildrenViewController.h; sourceTree = "<group>"; };
-		24F60786184125D400841DFC /* MCChildrenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCChildrenViewController.m; sourceTree = "<group>"; };
-		24F607881841275A00841DFC /* MCChildrenCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCChildrenCollection.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +93,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24A5F253184298D80027A226 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				24A5F254184298D80027A226 /* MCArrayDataSource.h */,
+				24A5F255184298D80027A226 /* MCArrayDataSource.m */,
+				24A5F256184298D80027A226 /* MCChildrenCollection.h */,
+				24A5F257184298D80027A226 /* MCChildrenNavigationController.h */,
+				24A5F258184298D80027A226 /* MCChildrenNavigationController.m */,
+				24A5F259184298D80027A226 /* MCChildrenViewController.h */,
+				24A5F25A184298D80027A226 /* MCChildrenViewController.m */,
+				24A5F25B184298D80027A226 /* MCChildrenViewControllerDelegate.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		24F6073C1841084E00841DFC = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +141,7 @@
 		24F6074E1841084F00841DFC /* MCChildrenNavigationController */ = {
 			isa = PBXGroup;
 			children = (
+				24A5F253184298D80027A226 /* lib */,
 				24F607571841084F00841DFC /* MCAppDelegate.h */,
 				24F607581841084F00841DFC /* MCAppDelegate.m */,
 				24F6075A1841084F00841DFC /* Images.xcassets */,
@@ -135,14 +151,6 @@
 				24F60779184108C000841DFC /* MCMainViewController.xib */,
 				24F6077C18410AC900841DFC /* MCTreeNode.h */,
 				24F6077D18410AC900841DFC /* MCTreeNode.m */,
-				24F6077F184116D200841DFC /* MCChildrenNavigationController.h */,
-				24F60780184116D200841DFC /* MCChildrenNavigationController.m */,
-				24F6078218411AC100841DFC /* MCArrayDataSource.h */,
-				24F6078318411AC100841DFC /* MCArrayDataSource.m */,
-				24F60785184125D400841DFC /* MCChildrenViewController.h */,
-				24F60786184125D400841DFC /* MCChildrenViewController.m */,
-				24F607881841275A00841DFC /* MCChildrenCollection.h */,
-				244375F918422A01005ED7DB /* MCChildrenViewControllerDelegate.h */,
 			);
 			path = MCChildrenNavigationController;
 			sourceTree = "<group>";
@@ -276,12 +284,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24F6078418411AC100841DFC /* MCArrayDataSource.m in Sources */,
 				24F6077A184108C000841DFC /* MCMainViewController.m in Sources */,
 				24F6077E18410AC900841DFC /* MCTreeNode.m in Sources */,
-				24F60787184125D400841DFC /* MCChildrenViewController.m in Sources */,
 				24F607591841084F00841DFC /* MCAppDelegate.m in Sources */,
-				24F60781184116D200841DFC /* MCChildrenNavigationController.m in Sources */,
+				24A5F25E184298D80027A226 /* MCChildrenViewController.m in Sources */,
+				24A5F25C184298D80027A226 /* MCArrayDataSource.m in Sources */,
+				24A5F25D184298D80027A226 /* MCChildrenNavigationController.m in Sources */,
 				24F607551841084F00841DFC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
