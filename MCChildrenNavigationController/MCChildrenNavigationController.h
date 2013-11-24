@@ -8,12 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "MCChildrenCollection.h"
-#import "MCArrayDataSource.h"
+#import "MCChildrenViewControllerDelegate.h"
 
-@interface MCChildrenNavigationController : UINavigationController
+typedef void (^selectedNodeBlock)(id<MCChildrenCollection> node, NSIndexPath *indexPath);
+
+@interface MCChildrenNavigationController : UINavigationController <MCChildrenViewControllerDelegate>
 
 @property (nonatomic, strong) id<MCChildrenCollection> rootNode;
-@property (nonatomic, strong) MCArrayDataSource *dataSource;
+@property (nonatomic, strong) NSIndexPath *selectedNodeIndexPath;
+@property (nonatomic, copy) selectedNodeBlock selectedNodeBlock;
+
+- (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode;
+- (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode
+ selectedNodeIndexPath:(NSIndexPath *)aSelectedNodeIndexPath;
+- (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode
+ selectedNodeIndexPath:(NSIndexPath *)aSelectedNodeIndexPath
+     selectedNodeBlock:(selectedNodeBlock)aSelectedNodeBlock;
 
 @end
 

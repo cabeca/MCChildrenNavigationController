@@ -71,8 +71,10 @@
 {
     NSLog(@"Show Children Button Tapped");
 
-    MCChildrenNavigationController *childrenNC = [[MCChildrenNavigationController alloc] init];
-    childrenNC.rootNode = (id<MCChildrenCollection>)self.rootNode;
+    MCChildrenNavigationController *childrenNC = [[MCChildrenNavigationController alloc] initWithRootNode:(id<MCChildrenCollection>)self.rootNode selectedNodeIndexPath:self.selectedIndexPath selectedNodeBlock:^(id<MCChildrenCollection> node, NSIndexPath *indexPath) {
+            NSLog(@"Selected node %@", node);
+            self.selectedIndexPath = indexPath;
+        }];
     [self presentViewController:childrenNC animated:YES completion:nil];
 
 }

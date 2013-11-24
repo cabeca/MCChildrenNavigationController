@@ -38,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		244375F918422A01005ED7DB /* MCChildrenViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCChildrenViewControllerDelegate.h; sourceTree = "<group>"; };
 		24F607451841084E00841DFC /* MCChildrenNavigationController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCChildrenNavigationController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F607481841084F00841DFC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24F6074A1841084F00841DFC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -141,6 +142,7 @@
 				24F60785184125D400841DFC /* MCChildrenViewController.h */,
 				24F60786184125D400841DFC /* MCChildrenViewController.m */,
 				24F607881841275A00841DFC /* MCChildrenCollection.h */,
+				244375F918422A01005ED7DB /* MCChildrenViewControllerDelegate.h */,
 			);
 			path = MCChildrenNavigationController;
 			sourceTree = "<group>";
@@ -222,6 +224,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Miguel Cabeça";
 				TargetAttributes = {
+					24F607441841084E00841DFC = {
+						DevelopmentTeam = BZV562365U;
+					};
 					24F6075F1841084F00841DFC = {
 						TestTargetID = 24F607441841084E00841DFC;
 					};
@@ -396,10 +401,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MCChildrenNavigationController/MCChildrenNavigationController-Prefix.pch";
 				INFOPLIST_FILE = "MCChildrenNavigationController/MCChildrenNavigationController-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -409,10 +417,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MCChildrenNavigationController/MCChildrenNavigationController-Prefix.pch";
 				INFOPLIST_FILE = "MCChildrenNavigationController/MCChildrenNavigationController-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -478,6 +489,7 @@
 				24F607731841084F00841DFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24F607741841084F00841DFC /* Build configuration list for PBXNativeTarget "MCChildrenNavigationControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -486,6 +498,7 @@
 				24F607761841084F00841DFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

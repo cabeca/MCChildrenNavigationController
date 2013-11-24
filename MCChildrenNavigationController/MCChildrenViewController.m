@@ -24,6 +24,22 @@
     return self;
 }
 
+- (id)initWithNode:(id<MCChildrenCollection>)aNode
+{
+    return [self initWithNode:aNode selectedChild:MCChildrenSelectedNone];
+}
+
+- (id)initWithNode:(id<MCChildrenCollection>)aNode selectedChild:(MCChildrenSelected)aSelectedChild
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        _node = aNode;
+        _selectedChild = aSelectedChild;
+    }
+    return self;
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,8 +55,11 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
-    void (^configureCell)(UITableViewCell*, id<MCChildrenCollection>) = ^(UITableViewCell* cell, id<MCChildrenCollection> item) {
+    void (^configureCell)(UITableViewCell*, id<MCChildrenCollection>, NSIndexPath *indexPath) = ^(UITableViewCell* cell, id<MCChildrenCollection> item, NSIndexPath *indexPath) {
         cell.textLabel.text = item.label;
+        if (self.selectedChild == [indexPath row]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
         if (item.children) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
@@ -56,10 +75,17 @@
 - (void)setupTableHeaderView
 {
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"All"]];
-    segmentedControl.momentary = YES;
+
+    if (self.selectedChild == MCChildrenSelectedAll) {
+        segmentedControl.selectedSegmentIndex = 0;
+    } else {
+        segmentedControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+    }
+
     [segmentedControl addTarget:self
                          action:@selector(didSelectAll)
                forControlEvents:UIControlEventValueChanged];
+
     self.tableView.tableHeaderView = segmentedControl;
 }
 
@@ -78,30 +104,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSInteger row = [indexPath row];
-    id<MCChildrenCollection> child = self.node.children[row];
-    if (child.children) {
-        [self pushChildrenViewControllerForNode:child];
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self dismissViewControllerAnimated:YES completion:nil];
-        NSLog(@"Selected node %@", child);
-    }
-}
-
-- (void)pushChildrenViewControllerForNode:(id<MCChildrenCollection>)node
-{
-    MCChildrenViewController *childrenViewController = [[MCChildrenViewController alloc] init];
-    childrenViewController.node = node;
-    [self.navigationController pushViewController:childrenViewController animated:YES];
+    [self.delegate childrenViewController:self didSelectChild:[indexPath row]];
 }
 
 - (void)didSelectAll
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    NSLog(@"Selected node %@", self.node);
+    [self.delegate childrenViewController:self didSelectChild:MCChildrenSelectedAll];
 }
 
 @end

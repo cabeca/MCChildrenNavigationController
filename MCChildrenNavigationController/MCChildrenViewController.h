@@ -9,10 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "MCArrayDataSource.h"
 #import "MCChildrenCollection.h"
+#import "MCChildrenViewControllerDelegate.h"
+
+typedef NS_ENUM(NSInteger, MCChildrenSelected) {
+    MCChildrenSelectedNone = -2,
+    MCChildrenSelectedAll = -1
+};
 
 @interface MCChildrenViewController : UIViewController <UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) id<MCChildrenCollection> node;
+@property (nonatomic, assign) MCChildrenSelected selectedChild;
+@property (nonatomic, weak) id<MCChildrenViewControllerDelegate> delegate;
+
+- (id)initWithNode:(id<MCChildrenCollection>)aNode;
+- (id)initWithNode:(id<MCChildrenCollection>)aNode selectedChild:(MCChildrenSelected)aSelectedChild;
 
 @end

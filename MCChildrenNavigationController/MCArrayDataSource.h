@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-typedef void (^TableViewCellConfigureBlock)(id cell, id item);
+typedef void (^TableViewCellConfigureBlock)(id cell, id item, NSIndexPath *indexPath);
 
 
 @interface MCArrayDataSource : NSObject <UITableViewDataSource>

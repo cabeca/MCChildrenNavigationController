@@ -55,7 +55,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellIdentifier];
     }
     id item = [self itemAtIndexPath:indexPath];
-    self.configureCellBlock(cell, item);
+    self.configureCellBlock(cell, item, indexPath);
     return cell;
 }
 
