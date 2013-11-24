@@ -108,7 +108,9 @@
 {
     MCChildrenViewController *childrenViewController = [[MCChildrenViewController alloc] initWithNode:node];
     childrenViewController.delegate = self;
-    childrenViewController.selectedChild = [self selectedChildForNode:node];
+    if (self.selectedNodeIndexPath) {
+        childrenViewController.selectedChild = [self selectedChildForNode:node];
+    }
     [self pushViewController:childrenViewController animated:animated];
 }
 
