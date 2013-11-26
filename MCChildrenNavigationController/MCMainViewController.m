@@ -72,11 +72,20 @@
 {
     NSLog(@"Show Children Button Tapped");
 
-    MCChildrenNavigationController *childrenNC = [[MCChildrenNavigationController alloc] initWithRootNode:(id<MCChildrenCollection>)self.rootNode selectedNodeIndexPath:self.selectedIndexPath selectedNodeBlock:^(id<MCChildrenCollection> node, NSIndexPath *indexPath) {
+    self.childrenNC = [[MCChildrenNavigationController alloc] initWithRootNode:nil selectedNodeIndexPath:self.selectedIndexPath selectedNodeBlock:^(id<MCChildrenCollection> node, NSIndexPath *indexPath) {
             NSLog(@"node = %@, indexPath = %@", node, indexPath);
             self.selectedIndexPath = indexPath;
         }];
-    [self presentViewController:childrenNC animated:YES completion:nil];
+    [self presentViewController:self.childrenNC animated:YES completion:nil];
 
+    NSTimer *aTimer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(changeRootNode:) userInfo:nil repeats:NO];
+    [[NSRunLoop mainRunLoop] addTimer:aTimer forMode:NSDefaultRunLoopMode];
+    
+}
+
+- (void)changeRootNode:(NSTimer *)timer
+{
+    NSLog(@"Changed Root Node");
+    self.childrenNC.rootNode = (id<MCChildrenCollection>)self.rootNode;
 }
 @end

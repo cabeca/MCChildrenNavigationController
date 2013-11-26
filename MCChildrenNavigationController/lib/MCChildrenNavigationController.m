@@ -47,32 +47,65 @@
     return self;
 }
 
+- (void)setRootNode:(id<MCChildrenCollection>)rootNode
+{
+    _rootNode = rootNode;
+    [self pushViewControllers];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self pushViewControllers];
+}
 
-    if (self.selectedNodeIndexPath) {
-        [self pushViewControllersForSelectedNode];
+- (void)pushViewControllers
+{
+    if (self.rootNode) {
+        [self pushChildrenViewControllers];
     } else {
-        [self pushViewControllersForRootNode];
+        [self pushEmptyController];
     }
 }
 
-- (void)pushViewControllersForRootNode
+- (void)pushEmptyController
+{
+    UIViewController *emptyController = [[UIViewController alloc] init];
+    emptyController.navigationItem.title = @"Loading...";
+    [self pushViewController:emptyController animated:NO];
+}
+
+- (void)pushChildrenViewControllers
+{
+    self.viewControllers = @[];
+    if (self.selectedNodeIndexPath) {
+        [self pushChildrenViewControllersForSelectedNode];
+    } else {
+        [self pushChildrenViewControllersForRootNode];
+    }
+}
+
+
+- (void)pushChildrenViewControllersForRootNode
 {
     [self pushChildrenViewControllerForNode:self.rootNode animated:NO];
 }
 
-- (void)pushViewControllersForSelectedNode
+- (void)pushChildrenViewControllersForSelectedNode
 {
     NSInteger currentIndex = 0;
-    NSInteger maximumLevel = [self.selectedNodeIndexPath length] - 1;
+    NSInteger maximumLevel = [self.selectedNodeIndexPath length];
     id<MCChildrenCollection> currentNode = self.rootNode;
     
     while (self.currentLevel < maximumLevel) {
         [self pushChildrenViewControllerForNode:currentNode animated:NO];
-        currentIndex = [self.selectedNodeIndexPath indexAtPosition:self.currentLevel];
-        currentNode = currentNode.children[currentIndex];
+        if (self.currentLevel < [self.selectedNodeIndexPath length]) {
+            currentIndex = [self.selectedNodeIndexPath indexAtPosition:self.currentLevel];
+            currentNode = currentNode.children[currentIndex];
+        }
+    }
+    if (!currentNode.children) {
+        [self popViewControllerAnimated:NO];
     }
 }
 
