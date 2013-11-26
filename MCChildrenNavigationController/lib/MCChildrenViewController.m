@@ -57,6 +57,7 @@
     
     void (^configureCell)(UITableViewCell*, id<MCChildrenCollection>, NSIndexPath *indexPath) = ^(UITableViewCell* cell, id<MCChildrenCollection> item, NSIndexPath *indexPath) {
         cell.textLabel.text = item.label;
+        cell.accessoryType = UITableViewCellAccessoryNone;
         if (self.selectedChild == [indexPath row]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
