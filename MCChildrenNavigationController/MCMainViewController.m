@@ -22,6 +22,10 @@
         _numberOfLevels = 5;
         _maximumNodesPerLevel = 10;
         _rootNode = [self generateRootNode];
+        _childrenNC = [[MCChildrenNavigationController alloc] init];
+        _childrenNC.selectedNodeBlock = ^(id<MCChildrenCollection> node, NSIndexPath *indexPath) {
+            NSLog(@"node = %@, indexPath = %@", node, indexPath);
+        };
     }
     return self;
 }
@@ -30,6 +34,10 @@
 {
     [super viewDidLoad];
     NSLog(@"rootNode: %@", self.rootNode);
+    
+    NSTimer *aTimer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(changeRootNode:) userInfo:nil repeats:NO];
+    [[NSRunLoop mainRunLoop] addTimer:aTimer forMode:NSDefaultRunLoopMode];
+    
 }
 
 #pragma - private
@@ -71,15 +79,7 @@
 {
     NSLog(@"Show Children Button Tapped");
 
-    self.childrenNC = [[MCChildrenNavigationController alloc] initWithRootNode:nil selectedNodeIndexPath:self.selectedIndexPath selectedNodeBlock:^(id<MCChildrenCollection> node, NSIndexPath *indexPath) {
-            NSLog(@"node = %@, indexPath = %@", node, indexPath);
-            self.selectedIndexPath = indexPath;
-        }];
     [self presentViewController:self.childrenNC animated:YES completion:nil];
-
-    NSTimer *aTimer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(changeRootNode:) userInfo:nil repeats:NO];
-    [[NSRunLoop mainRunLoop] addTimer:aTimer forMode:NSDefaultRunLoopMode];
-    
 }
 
 - (void)changeRootNode:(NSTimer *)timer

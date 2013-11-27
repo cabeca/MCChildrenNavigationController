@@ -53,9 +53,9 @@
     [self pushViewControllers];
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     [self pushViewControllers];
 }
 
