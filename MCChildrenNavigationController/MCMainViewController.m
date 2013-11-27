@@ -22,7 +22,6 @@
         _numberOfLevels = 5;
         _maximumNodesPerLevel = 10;
         _rootNode = [self generateRootNode];
-        _selectedIndexPath = nil;
     }
     return self;
 }

@@ -118,7 +118,8 @@
     if (selectedChild == MCChildrenSelectedAll) {
         NSLog(@"Selected node %@", childrenViewController.node);
         if (self.selectedNodeBlock) {
-            self.selectedNodeBlock(childrenViewController.node, [self indexPathForSelectedNode]);
+            self.selectedNodeIndexPath = [self indexPathForSelectedNode];
+            self.selectedNodeBlock(childrenViewController.node, self.selectedNodeIndexPath);
         }
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
@@ -130,8 +131,8 @@
     } else {
         NSLog(@"Selected node %@", child);
         if (self.selectedNodeBlock) {
-            NSIndexPath *nodeIndexPath = [[self indexPathForSelectedNode] indexPathByAddingIndex:selectedChild];
-            self.selectedNodeBlock(child, nodeIndexPath);
+            self.selectedNodeIndexPath = [[self indexPathForSelectedNode] indexPathByAddingIndex:selectedChild];
+            self.selectedNodeBlock(child, self.selectedNodeIndexPath);
         }
         [self dismissViewControllerAnimated:YES completion:nil];
     }

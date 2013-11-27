@@ -16,7 +16,6 @@
 @property (nonatomic, assign) NSInteger numberOfLevels;
 @property (nonatomic, assign) NSInteger maximumNodesPerLevel;
 @property (nonatomic, strong) MCTreeNode *rootNode;
-@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic, strong) MCChildrenNavigationController *childrenNC;
 
 - (IBAction)showChildrenButtonTapped:(id)sender;
