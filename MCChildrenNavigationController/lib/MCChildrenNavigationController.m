@@ -72,6 +72,7 @@
 {
     UIViewController *emptyController = [[UIViewController alloc] init];
     emptyController.navigationItem.title = @"Loading...";
+    emptyController.view.backgroundColor = [UIColor whiteColor];
     [self pushViewController:emptyController animated:NO];
 }
 
