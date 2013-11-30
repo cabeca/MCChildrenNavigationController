@@ -25,6 +25,7 @@
         _childrenNC = [[MCChildrenNavigationController alloc] init];
         _childrenNC.selectedNodeBlock = ^(id<MCChildrenCollection> node, NSIndexPath *indexPath) {
             NSLog(@"node = %@, indexPath = %@", node, indexPath);
+            [self dismissViewControllerAnimated:YES completion:nil];
         };
     }
     return self;

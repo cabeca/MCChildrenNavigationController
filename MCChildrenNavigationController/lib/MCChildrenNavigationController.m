@@ -18,6 +18,12 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        _rootNode = nil;
+        _selectedNodeIndexPath = nil;
+        _childrenSelectionMode = MCChildrenNavigationControllerSelectionModeAll;
+        _maximumLevel = MCChildrenNavigationControllerMaximumLevelNone;
+        
+        _selectedNodeBlock = ^void(id<MCChildrenCollection> node, NSIndexPath *indexPath){};
         _configureNavigationControllerBlock = ^void(UINavigationController *navigationController){};
         _configureChildrenViewControllerBlock = ^void(MCChildrenViewController *childrenViewController){};
         _configureTableViewBlock = ^void(UITableView *tableView){};
@@ -128,11 +134,8 @@
     }
     if (selectedChild == MCChildrenSelectedAll) {
         NSLog(@"Selected node %@", childrenViewController.node);
-        if (self.selectedNodeBlock) {
-            self.selectedNodeIndexPath = [self indexPathForSelectedNode];
-            self.selectedNodeBlock(childrenViewController.node, self.selectedNodeIndexPath);
-        }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        self.selectedNodeIndexPath = [self indexPathForSelectedNode];
+        self.selectedNodeBlock(childrenViewController.node, self.selectedNodeIndexPath);
         return;
     }
 
@@ -141,11 +144,8 @@
         [self pushChildrenViewControllerForNode:child animated:YES];
     } else {
         NSLog(@"Selected node %@", child);
-        if (self.selectedNodeBlock) {
-            self.selectedNodeIndexPath = [[self indexPathForSelectedNode] indexPathByAddingIndex:selectedChild];
-            self.selectedNodeBlock(child, self.selectedNodeIndexPath);
-        }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        self.selectedNodeIndexPath = [[self indexPathForSelectedNode] indexPathByAddingIndex:selectedChild];
+        self.selectedNodeBlock(child, self.selectedNodeIndexPath);
     }
 }
 
