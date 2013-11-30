@@ -239,7 +239,6 @@
     id<MCChildrenCollection> node = childrenViewController.node.children[childIndex];
 
     if ([self childrenViewController:childrenViewController canSelectChildIndex:childIndex]) {
-        NSLog(@"Selected node %@", node);
         self.selectedNodeIndexPath = [[self indexPathForCurrentNode] indexPathByAddingIndex:childIndex];
         self.selectedNodeBlock(node, self.selectedNodeIndexPath);
     }
@@ -253,7 +252,6 @@
 {
     id<MCChildrenCollection> node = childrenViewController.node;
 
-    NSLog(@"Selected node %@", node);
     self.selectedNodeIndexPath = [self indexPathForCurrentNode];
     self.selectedNodeBlock(node, self.selectedNodeIndexPath);
     return;
