@@ -6,9 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MCMainViewController">
             <connections>
-                <outlet property="allowedSelectionSegmentedControl" destination="NAD-q4-PdY" id="S3A-O4-HaI"/>
                 <outlet property="levelLabel" destination="oQ4-qU-2Yj" id="Lkl-hE-Tz3"/>
                 <outlet property="levelStepper" destination="v0x-uF-AWr" id="LoO-al-SHG"/>
+                <outlet property="selectionModeSegmentedControl" destination="NAD-q4-PdY" id="4WK-cx-hsk"/>
                 <outlet property="showChildrenButton" destination="ndn-sd-bOt" id="1sf-51-iZ6"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>

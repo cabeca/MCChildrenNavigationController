@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *showChildrenButton;
 @property (weak, nonatomic) IBOutlet UIStepper *levelStepper;
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *allowedSelectionSegmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *selectionModeSegmentedControl;
 @property (nonatomic, assign) NSInteger numberOfLevels;
 @property (nonatomic, assign) NSInteger maximumNodesPerLevel;
 @property (nonatomic, strong) MCTreeNode *rootNode;

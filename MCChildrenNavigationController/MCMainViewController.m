@@ -80,6 +80,8 @@
 {
     NSLog(@"Show Children Button Tapped");
 
+    self.childrenNC.maximumLevel = self.levelStepper.value;
+    self.childrenNC.selectionMode = self.selectionModeSegmentedControl.selectedSegmentIndex;
     [self presentViewController:self.childrenNC animated:YES completion:nil];
 }
 
