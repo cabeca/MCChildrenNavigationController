@@ -23,10 +23,6 @@
         _maximumNodesPerLevel = 10;
         _rootNode = [self generateRootNode];
         _childrenNC = [[MCChildrenNavigationController alloc] init];
-        _childrenNC.selectedNodeBlock = ^(id<MCChildrenCollection> node, NSIndexPath *indexPath) {
-            NSLog(@"node = %@, indexPath = %@", node, indexPath);
-            [self dismissViewControllerAnimated:YES completion:nil];
-        };
     }
     return self;
 }
@@ -82,6 +78,13 @@
 
     self.childrenNC.maximumLevel = self.levelStepper.value;
     self.childrenNC.selectionMode = self.selectionModeSegmentedControl.selectedSegmentIndex;
+
+    __weak __typeof(self) weakSelf = self;
+    self.childrenNC.selectedNodeBlock = ^(id<MCChildrenCollection> node, NSIndexPath *indexPath) {
+        NSLog(@"node = %@, indexPath = %@", node, indexPath);
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    };
+
     [self presentViewController:self.childrenNC animated:YES completion:nil];
 }
 
