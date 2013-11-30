@@ -31,7 +31,7 @@ typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 
 @property (nonatomic, strong) id<MCChildrenCollection> rootNode;
 @property (nonatomic, strong) NSIndexPath *selectedNodeIndexPath;
-@property (nonatomic, assign) MCChildrenNavigationControllerSelectionMode childrenSelectionMode;
+@property (nonatomic, assign) MCChildrenNavigationControllerSelectionMode selectionMode;
 @property (nonatomic, assign) NSInteger maximumLevel;
 
 @property (nonatomic, copy) selectedNodeBlock selectedNodeBlock;

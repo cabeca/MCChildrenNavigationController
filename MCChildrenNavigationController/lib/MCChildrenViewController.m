@@ -25,20 +25,15 @@
     return self;
 }
 
-- (id)initWithNode:(id<MCChildrenCollection>)aNode
-{
-    return [self initWithNode:aNode selectedChild:MCChildrenSelectedNone];
-}
-
-- (id)initWithNode:(id<MCChildrenCollection>)aNode selectedChild:(MCChildrenSelected)aSelectedChild
+- (id)initWithNode:(id<MCChildrenCollection>)aNode level:(NSInteger)aLevel index:(NSInteger)anIndex
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _node = aNode;
-        _selectedChild = aSelectedChild;
+        _level = aLevel;
+        _index = anIndex;
     }
     return self;
-    
 }
 
 - (void)viewDidLoad
@@ -51,6 +46,14 @@
     [self setupNavigationItems];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    if (selectedIndexPath) {
+        [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
+    }
+}
+
 - (void)setupTableView
 {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
@@ -59,10 +62,11 @@
     void (^configureCell)(UITableViewCell*, id<MCChildrenCollection>, NSIndexPath *indexPath) = ^(UITableViewCell* cell, id<MCChildrenCollection> item, NSIndexPath *indexPath) {
         cell.textLabel.text = item.label;
         cell.accessoryType = UITableViewCellAccessoryNone;
-        if (self.selectedChild == [indexPath row]) {
+        
+        if ([self.delegate childrenViewController:self shouldSelectChildIndex:[indexPath row]]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
-        if (item.children) {
+        if ([self.delegate childrenViewController:self canNavigateToChildIndex:[indexPath row]]) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         
@@ -80,19 +84,21 @@
 
 - (void)setupTableHeaderView
 {
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"All"]];
+    if ([self.delegate childrenViewControllerShouldShowAll:self]) {
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"All"]];
 
-    if (self.selectedChild == MCChildrenSelectedAll) {
-        segmentedControl.selectedSegmentIndex = 0;
-    } else {
-        segmentedControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+        if ([self.delegate childrenViewControllerShouldSelectAll:self]) {
+            segmentedControl.selectedSegmentIndex = 0;
+        } else {
+            segmentedControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+        }
+        
+        [segmentedControl addTarget:self
+                             action:@selector(didSelectAll)
+                   forControlEvents:UIControlEventValueChanged];
+        
+        self.tableView.tableHeaderView = segmentedControl;
     }
-
-    [segmentedControl addTarget:self
-                         action:@selector(didSelectAll)
-               forControlEvents:UIControlEventValueChanged];
-
-    self.tableView.tableHeaderView = segmentedControl;
 }
 
 - (void)setupNavigationItems
@@ -110,12 +116,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.delegate childrenViewController:self didSelectChild:[indexPath row]];
+    [self.delegate childrenViewController:self didSelectChildIndex:[indexPath row]];
 }
 
 - (void)didSelectAll
 {
-    [self.delegate childrenViewController:self didSelectChild:MCChildrenSelectedAll];
+    [self.delegate childrenViewControllerDidSelectAll:self];
 }
 
 @end

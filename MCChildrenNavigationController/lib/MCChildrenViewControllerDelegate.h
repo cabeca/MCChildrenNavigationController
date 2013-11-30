@@ -12,5 +12,22 @@
 typedef NS_ENUM(NSInteger, MCChildrenSelected);
 
 @protocol MCChildrenViewControllerDelegate <NSObject>
-- (void)childrenViewController:(MCChildrenViewController *)childrenViewController didSelectChild:(MCChildrenSelected)selectedChild;
+- (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
+       canNavigateToChildIndex:(NSInteger)childIndex;
+
+- (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
+       canSelectChildIndex:(NSInteger)childIndex;
+
+- (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
+        shouldSelectChildIndex:(NSInteger)childIndex;
+
+- (BOOL)childrenViewControllerShouldShowAll:(MCChildrenViewController *)childrenViewController;
+
+- (BOOL)childrenViewControllerShouldSelectAll:(MCChildrenViewController *)childrenViewController;
+
+
+- (void)childrenViewController:(MCChildrenViewController *)childrenViewController
+           didSelectChildIndex:(NSInteger)childIndex;
+
+- (void)childrenViewControllerDidSelectAll:(MCChildrenViewController *)childrenViewController;
 @end

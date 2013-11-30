@@ -10,6 +10,7 @@
 #import "MCChildrenViewController.h"
 
 @interface MCChildrenNavigationController ()
+@property (strong, nonatomic) id<MCChildrenCollection> selectedNodeCache;
 @end
 
 @implementation MCChildrenNavigationController
@@ -18,9 +19,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        _selectedNodeCache = nil;
+        
         _rootNode = nil;
         _selectedNodeIndexPath = nil;
-        _childrenSelectionMode = MCChildrenNavigationControllerSelectionModeAll;
+        _selectionMode = MCChildrenNavigationControllerSelectionModeAll;
         _maximumLevel = MCChildrenNavigationControllerMaximumLevelNone;
         
         _selectedNodeBlock = ^void(id<MCChildrenCollection> node, NSIndexPath *indexPath){};
@@ -62,6 +65,12 @@
     [self pushViewControllers];
 }
 
+- (void)setSelectedNodeIndexPath:(NSIndexPath *)selectedNodeIndexPath
+{
+    _selectedNodeIndexPath = selectedNodeIndexPath;
+    _selectedNodeCache = nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -98,69 +107,50 @@
     if (self.selectedNodeIndexPath) {
         [self pushChildrenViewControllersForSelectedNode];
     } else {
-        [self pushChildrenViewControllersForRootNode];
+        [self pushChildrenViewControllerForRootNode];
     }
 }
 
 
-- (void)pushChildrenViewControllersForRootNode
+- (MCChildrenViewController *)pushChildrenViewControllerForRootNode
 {
-    [self pushChildrenViewControllerForNode:self.rootNode animated:NO];
+    return [self pushChildrenViewControllerForNode:self.rootNode level:0 index:-1 animated:NO];
 }
 
 - (void)pushChildrenViewControllersForSelectedNode
 {
-    NSInteger currentIndex = 0;
-    NSInteger maximumLevel = [self.selectedNodeIndexPath length];
-    id<MCChildrenCollection> currentNode = self.rootNode;
+    MCChildrenViewController *currentViewController = nil;
+    currentViewController = [self pushChildrenViewControllerForRootNode];
     
-    while (self.currentLevel < maximumLevel) {
-        [self pushChildrenViewControllerForNode:currentNode animated:NO];
-        if (self.currentLevel < [self.selectedNodeIndexPath length]) {
-            currentIndex = [self.selectedNodeIndexPath indexAtPosition:self.currentLevel];
-            currentNode = currentNode.children[currentIndex];
+    for (NSInteger currentPosition = 0; currentPosition < [self.selectedNodeIndexPath length]; currentPosition++) {
+        NSInteger currentIndex = [self.selectedNodeIndexPath indexAtPosition:currentPosition];
+        
+        if ([self childrenViewController:currentViewController canNavigateToChildIndex:currentIndex]) {
+            id<MCChildrenCollection> node = currentViewController.node.children[currentIndex];
+            NSInteger level = currentViewController.level + 1;
+            currentViewController = [self pushChildrenViewControllerForNode:node level:level index:currentIndex animated:NO];
+        } else {
+            break;
         }
     }
-    if (!currentNode.children) {
-        [self popViewControllerAnimated:NO];
-    }
 }
 
-#pragma - MCChildrenViewControllerDelegate
-- (void)childrenViewController:(MCChildrenViewController *)childrenViewController didSelectChild:(MCChildrenSelected)selectedChild
-{
-    if (selectedChild == MCChildrenSelectedNone) {
-        return;
-    }
-    if (selectedChild == MCChildrenSelectedAll) {
-        NSLog(@"Selected node %@", childrenViewController.node);
-        self.selectedNodeIndexPath = [self indexPathForSelectedNode];
-        self.selectedNodeBlock(childrenViewController.node, self.selectedNodeIndexPath);
-        return;
-    }
 
-    id<MCChildrenCollection> child = childrenViewController.node.children[selectedChild];
-    if (child.children) {
-        [self pushChildrenViewControllerForNode:child animated:YES];
-    } else {
-        NSLog(@"Selected node %@", child);
-        self.selectedNodeIndexPath = [[self indexPathForSelectedNode] indexPathByAddingIndex:selectedChild];
-        self.selectedNodeBlock(child, self.selectedNodeIndexPath);
-    }
-}
-
-- (void)pushChildrenViewControllerForNode:(id<MCChildrenCollection>)node animated:(BOOL)animated
+- (MCChildrenViewController *)pushChildrenViewControllerForNode:(id<MCChildrenCollection>)node
+                                    level:(NSInteger)level
+                                    index:(NSInteger)index
+                                 animated:(BOOL)animated
 {
-    MCChildrenViewController *childrenViewController = [[MCChildrenViewController alloc] initWithNode:node];
+    MCChildrenViewController *childrenViewController =
+        [[MCChildrenViewController alloc] initWithNode:node level:level index:index];
+
     childrenViewController.delegate = self;
     childrenViewController.configureTableViewBlock = self.configureTableViewBlock;
     childrenViewController.configureTableViewCellBlock = self.configureTableViewCellBlock;
     self.configureChildrenViewControllerBlock(childrenViewController);
     
-    if (self.selectedNodeIndexPath) {
-        childrenViewController.selectedChild = [self selectedChildForNode:node];
-    }
     [self pushViewController:childrenViewController animated:animated];
+    return childrenViewController;
 }
 
 - (NSInteger)currentLevel
@@ -168,43 +158,105 @@
     return [self.viewControllers count] - 1;
 }
 
-- (MCChildrenSelected)selectedChildForNode:(id<MCChildrenCollection>)node
-{
-    if ([node isEqual:[self selectedNode]]) {
-        return MCChildrenSelectedAll;
-    }
-    NSInteger childIndex = [node.children indexOfObject:[self selectedNode]];
-    if (childIndex == NSNotFound) {
-        return MCChildrenSelectedNone;
-    } else {
-        return childIndex;
-    }
-}
-
 - (id<MCChildrenCollection>)selectedNode
 {
-    id<MCChildrenCollection> currentNode = self.rootNode;
-    
-    for (NSInteger currentPosition = 0; currentPosition < [self.selectedNodeIndexPath length]; currentPosition++) {
-        NSInteger currentIndex = [self.selectedNodeIndexPath indexAtPosition:currentPosition];
-        currentNode = currentNode.children[currentIndex];
+    if (!self.selectedNodeIndexPath) {
+        return nil;
     }
-    return currentNode;
+    if (!_selectedNodeCache) {
+        id<MCChildrenCollection> currentNode = self.rootNode;
+        
+        for (NSInteger currentPosition = 0; currentPosition < [self.selectedNodeIndexPath length]; currentPosition++) {
+            NSInteger currentIndex = [self.selectedNodeIndexPath indexAtPosition:currentPosition];
+            currentNode = currentNode.children[currentIndex];
+        }
+        _selectedNodeCache = currentNode;
+    }
+    return _selectedNodeCache;
 }
 
-- (NSIndexPath *)indexPathForSelectedNode
+
+
+#pragma - MCChildrenViewControllerDelegate
+- (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
+       canNavigateToChildIndex:(NSInteger)childIndex
+{
+    id<MCChildrenCollection> child = childrenViewController.node.children[childIndex];
+    NSInteger childLevel = childrenViewController.level + 1;
+    
+    return child.children &&
+        (childLevel <= self.maximumLevel);
+}
+
+- (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
+        canSelectChildIndex:(NSInteger)childIndex
+{
+    return (self.selectionMode != MCChildrenNavigationControllerSelectionModeNone) &&
+        (![self childrenViewController:childrenViewController canNavigateToChildIndex:childIndex]);
+}
+
+- (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
+        shouldSelectChildIndex:(NSInteger)childIndex
+{
+    id<MCChildrenCollection> child = childrenViewController.node.children[childIndex];
+    
+    return (child == self.selectedNode) &&
+        [self childrenViewController:childrenViewController canSelectChildIndex:childIndex];
+}
+
+- (BOOL)childrenViewControllerShouldShowAll:(MCChildrenViewController *)childrenViewController
+{
+    return (self.selectionMode == MCChildrenNavigationControllerSelectionModeAll) ||
+        ((self.selectionMode == MCChildrenNavigationControllerSelectionModeNoRoot) &&
+         (childrenViewController.level != 0));
+}
+
+- (BOOL)childrenViewControllerShouldSelectAll:(MCChildrenViewController *)childrenViewController
+{
+    return (childrenViewController.node == self.selectedNode) &&
+        [self childrenViewControllerShouldShowAll:childrenViewController];
+}
+
+
+- (void)childrenViewController:(MCChildrenViewController *)childrenViewController
+           didSelectChildIndex:(NSInteger)childIndex
+{
+    id<MCChildrenCollection> node = childrenViewController.node.children[childIndex];
+
+    if ([self childrenViewController:childrenViewController canSelectChildIndex:childIndex]) {
+        NSLog(@"Selected node %@", node);
+        self.selectedNodeIndexPath = [[self indexPathForCurrentNode] indexPathByAddingIndex:childIndex];
+        self.selectedNodeBlock(node, self.selectedNodeIndexPath);
+    }
+    if ([self childrenViewController:childrenViewController canNavigateToChildIndex:childIndex]) {
+        NSInteger level = childrenViewController.level + 1;
+        [self pushChildrenViewControllerForNode:node level:level index:childIndex animated:YES];
+    }
+}
+
+- (void)childrenViewControllerDidSelectAll:(MCChildrenViewController *)childrenViewController
+{
+    id<MCChildrenCollection> node = childrenViewController.node;
+
+    NSLog(@"Selected node %@", node);
+    self.selectedNodeIndexPath = [self indexPathForCurrentNode];
+    self.selectedNodeBlock(node, self.selectedNodeIndexPath);
+    return;
+
+}
+
+#pragma mark - private
+- (NSIndexPath *)indexPathForCurrentNode
 {
     NSIndexPath *indexPath = [[NSIndexPath alloc] init];
-    id<MCChildrenCollection> currentNode = self.rootNode;
     
     for (MCChildrenViewController *childrenViewController in self.viewControllers) {
         if (childrenViewController.node == self.rootNode) {
             continue;
         }
-        NSInteger index = [currentNode.children indexOfObject:childrenViewController.node];
-        indexPath = [indexPath indexPathByAddingIndex:index];
-        currentNode = currentNode.children[index];
+        indexPath = [indexPath indexPathByAddingIndex:childrenViewController.index];
     }
+
     return indexPath;
 }
 

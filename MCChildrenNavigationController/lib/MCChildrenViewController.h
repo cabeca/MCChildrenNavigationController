@@ -11,11 +11,6 @@
 #import "MCChildrenCollection.h"
 #import "MCChildrenViewControllerDelegate.h"
 
-typedef NS_ENUM(NSInteger, MCChildrenSelected) {
-    MCChildrenSelectedNone = -2,
-    MCChildrenSelectedAll = -1
-};
-
 typedef void (^configureTableViewBlock)(UITableView *tableView);
 typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 
@@ -23,13 +18,14 @@ typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) id<MCChildrenCollection> node;
-@property (nonatomic, assign) MCChildrenSelected selectedChild;
+@property (nonatomic, assign) NSInteger level;
+@property (nonatomic, assign) NSInteger index;
+
 @property (nonatomic, weak) id<MCChildrenViewControllerDelegate> delegate;
 
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
 @property (nonatomic, copy) configureTableViewCellBlock configureTableViewCellBlock;
 
-- (id)initWithNode:(id<MCChildrenCollection>)aNode;
-- (id)initWithNode:(id<MCChildrenCollection>)aNode selectedChild:(MCChildrenSelected)aSelectedChild;
+- (id)initWithNode:(id<MCChildrenCollection>)aNode level:(NSInteger)aLevel index:(NSInteger)anIndex;
 
 @end
