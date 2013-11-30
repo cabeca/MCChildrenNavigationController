@@ -82,6 +82,11 @@
     [self presentViewController:self.childrenNC animated:YES completion:nil];
 }
 
+- (IBAction)levelStepperChanged:(id)sender
+{
+    self.levelLabel.text = [NSString stringWithFormat:@"%.0f", self.levelStepper.value];
+}
+
 - (void)changeRootNode:(NSTimer *)timer
 {
     NSLog(@"Changed Root Node");
