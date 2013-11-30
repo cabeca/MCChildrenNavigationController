@@ -16,12 +16,18 @@ typedef NS_ENUM(NSInteger, MCChildrenSelected) {
     MCChildrenSelectedAll = -1
 };
 
+typedef void (^configureTableViewBlock)(UITableView *tableView);
+typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
+
 @interface MCChildrenViewController : UIViewController <UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) id<MCChildrenCollection> node;
 @property (nonatomic, assign) MCChildrenSelected selectedChild;
 @property (nonatomic, weak) id<MCChildrenViewControllerDelegate> delegate;
+
+@property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
+@property (nonatomic, copy) configureTableViewCellBlock configureTableViewCellBlock;
 
 - (id)initWithNode:(id<MCChildrenCollection>)aNode;
 - (id)initWithNode:(id<MCChildrenCollection>)aNode selectedChild:(MCChildrenSelected)aSelectedChild;

@@ -18,7 +18,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _configureNavigationControllerBlock = ^void(UINavigationController *navigationController){};
+        _configureChildrenViewControllerBlock = ^void(MCChildrenViewController *childrenViewController){};
+        _configureTableViewBlock = ^void(UITableView *tableView){};
+        _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
     }
     return self;
 }
@@ -51,6 +54,13 @@
 {
     _rootNode = rootNode;
     [self pushViewControllers];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.configureNavigationControllerBlock(self);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -143,6 +153,10 @@
 {
     MCChildrenViewController *childrenViewController = [[MCChildrenViewController alloc] initWithNode:node];
     childrenViewController.delegate = self;
+    childrenViewController.configureTableViewBlock = self.configureTableViewBlock;
+    childrenViewController.configureTableViewCellBlock = self.configureTableViewCellBlock;
+    self.configureChildrenViewControllerBlock(childrenViewController);
+    
     if (self.selectedNodeIndexPath) {
         childrenViewController.selectedChild = [self selectedChildForNode:node];
     }

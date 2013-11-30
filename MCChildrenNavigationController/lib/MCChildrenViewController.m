@@ -19,7 +19,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _configureTableViewBlock = ^void(UITableView *tableView){};
+        _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
     }
     return self;
 }
@@ -64,6 +65,8 @@
         if (item.children) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
+        
+        self.configureTableViewCellBlock(cell);
     };
     
     self.dataSource = [[MCArrayDataSource alloc] initWithItems:self.node.children
@@ -71,6 +74,8 @@
                                             configureCellBlock:configureCell];
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
+
+    self.configureTableViewBlock(self.tableView);
 }
 
 - (void)setupTableHeaderView
