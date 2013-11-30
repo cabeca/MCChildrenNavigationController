@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MCArrayDataSource.h"
 #import "MCChildrenCollection.h"
 #import "MCChildrenViewControllerDelegate.h"
 

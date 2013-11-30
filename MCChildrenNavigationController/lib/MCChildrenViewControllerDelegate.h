@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @class MCChildrenViewController;
-typedef NS_ENUM(NSInteger, MCChildrenSelected);
 
 @protocol MCChildrenViewControllerDelegate <NSObject>
+
 - (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
        canNavigateToChildIndex:(NSInteger)childIndex;
 
@@ -30,4 +30,5 @@ typedef NS_ENUM(NSInteger, MCChildrenSelected);
            didSelectChildIndex:(NSInteger)childIndex;
 
 - (void)childrenViewControllerDidSelectAll:(MCChildrenViewController *)childrenViewController;
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "MCChildrenViewController.h"
-#import "MCChildrenCollection.h"
+#import "MCArrayDataSource.h"
 
 @interface MCChildrenViewController ()
 @property (nonatomic, strong) MCArrayDataSource *dataSource;
@@ -36,6 +36,7 @@
     return self;
 }
 
+#pragma mark - UIViewController
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -54,12 +55,13 @@
     }
 }
 
+#pragma mark - private
 - (void)setupTableView
 {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
-    void (^configureCell)(UITableViewCell*, id<MCChildrenCollection>, NSIndexPath *indexPath) = ^(UITableViewCell* cell, id<MCChildrenCollection> item, NSIndexPath *indexPath) {
+    TableViewCellConfigureBlock configureCell = ^(UITableViewCell* cell, id<MCChildrenCollection> item, NSIndexPath *indexPath) {
         cell.textLabel.text = item.label;
         cell.accessoryType = UITableViewCellAccessoryNone;
         
@@ -114,14 +116,15 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.delegate childrenViewController:self didSelectChildIndex:[indexPath row]];
-}
-
 - (void)didSelectAll
 {
     [self.delegate childrenViewControllerDidSelectAll:self];
+}
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.delegate childrenViewController:self didSelectChildIndex:[indexPath row]];
 }
 
 @end

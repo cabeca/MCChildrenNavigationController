@@ -28,7 +28,8 @@
         
         _selectedNodeBlock = ^void(id<MCChildrenCollection> node, NSIndexPath *indexPath){};
         _configureNavigationControllerBlock = ^void(UINavigationController *navigationController){};
-        _configureChildrenViewControllerBlock = ^void(MCChildrenViewController *childrenViewController){};
+        _configureChildrenViewControllerBlock = ^void(UIViewController *childrenViewController){};
+        _configureEmptyViewControllerBlock = ^void(UIViewController *emptyViewController){};
         _configureTableViewBlock = ^void(UITableView *tableView){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
     }
@@ -71,6 +72,7 @@
     _selectedNodeCache = nil;
 }
 
+#pragma mark - UIViewController
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -84,21 +86,26 @@
     [self pushViewControllers];
 }
 
+#pragma mark - private
+
 - (void)pushViewControllers
 {
     if (self.rootNode) {
         [self pushChildrenViewControllers];
     } else {
-        [self pushEmptyController];
+        [self pushEmptyViewController];
     }
 }
 
-- (void)pushEmptyController
+- (void)pushEmptyViewController
 {
-    UIViewController *emptyController = [[UIViewController alloc] init];
-    emptyController.navigationItem.title = @"Loading...";
-    emptyController.view.backgroundColor = [UIColor whiteColor];
-    [self pushViewController:emptyController animated:NO];
+    UIViewController *emptyViewController = [[UIViewController alloc] init];
+    emptyViewController.navigationItem.title = @"Empty";
+    emptyViewController.view.backgroundColor = [UIColor whiteColor];
+
+    self.configureEmptyViewControllerBlock(emptyViewController);
+
+    [self pushViewController:emptyViewController animated:NO];
 }
 
 - (void)pushChildrenViewControllers
@@ -153,11 +160,6 @@
     return childrenViewController;
 }
 
-- (NSInteger)currentLevel
-{
-    return [self.viewControllers count] - 1;
-}
-
 - (id<MCChildrenCollection>)selectedNode
 {
     if (!self.selectedNodeIndexPath) {
@@ -175,9 +177,22 @@
     return _selectedNodeCache;
 }
 
+- (NSIndexPath *)indexPathForCurrentNode
+{
+    NSIndexPath *indexPath = [[NSIndexPath alloc] init];
+    
+    for (MCChildrenViewController *childrenViewController in self.viewControllers) {
+        if (childrenViewController.node == self.rootNode) {
+            continue;
+        }
+        indexPath = [indexPath indexPathByAddingIndex:childrenViewController.index];
+    }
+    
+    return indexPath;
+}
 
 
-#pragma - MCChildrenViewControllerDelegate
+#pragma mark - MCChildrenViewControllerDelegate
 - (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
        canNavigateToChildIndex:(NSInteger)childIndex
 {
@@ -200,7 +215,7 @@
 {
     id<MCChildrenCollection> child = childrenViewController.node.children[childIndex];
     
-    return (child == self.selectedNode) &&
+    return (child == [self selectedNode]) &&
         [self childrenViewController:childrenViewController canSelectChildIndex:childIndex];
 }
 
@@ -213,7 +228,7 @@
 
 - (BOOL)childrenViewControllerShouldSelectAll:(MCChildrenViewController *)childrenViewController
 {
-    return (childrenViewController.node == self.selectedNode) &&
+    return (childrenViewController.node == [self selectedNode]) &&
         [self childrenViewControllerShouldShowAll:childrenViewController];
 }
 
@@ -243,21 +258,6 @@
     self.selectedNodeBlock(node, self.selectedNodeIndexPath);
     return;
 
-}
-
-#pragma mark - private
-- (NSIndexPath *)indexPathForCurrentNode
-{
-    NSIndexPath *indexPath = [[NSIndexPath alloc] init];
-    
-    for (MCChildrenViewController *childrenViewController in self.viewControllers) {
-        if (childrenViewController.node == self.rootNode) {
-            continue;
-        }
-        indexPath = [indexPath indexPathByAddingIndex:childrenViewController.index];
-    }
-
-    return indexPath;
 }
 
 @end
