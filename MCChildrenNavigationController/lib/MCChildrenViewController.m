@@ -87,8 +87,26 @@
 - (void)setupTableHeaderView
 {
     if ([self.delegate childrenViewControllerShouldShowAll:self]) {
+        UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
         UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"All"]];
+        
+        [tableHeaderView addSubview:segmentedControl];
+        
+        NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[segmentedControl]-(8)-|"
+                                                                               options:0
+                                                                               metrics:nil
+                                                                                 views:@{@"segmentedControl":segmentedControl}];
+        
+        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(32)-[segmentedControl]-(32)-|"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:@{@"segmentedControl":segmentedControl}];
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
+//        tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+        [tableHeaderView addConstraints:verticalConstraints];
+        [tableHeaderView addConstraints:horizontalConstraints];
 
+        
         if ([self.delegate childrenViewControllerShouldSelectAll:self]) {
             segmentedControl.selectedSegmentIndex = 0;
         } else {
@@ -99,7 +117,7 @@
                              action:@selector(didSelectAll)
                    forControlEvents:UIControlEventValueChanged];
         
-        self.tableView.tableHeaderView = segmentedControl;
+        self.tableView.tableHeaderView = tableHeaderView;
     }
 }
 
