@@ -200,7 +200,8 @@
     NSInteger childLevel = childrenViewController.level + 1;
     
     return child.children &&
-        (childLevel <= self.maximumLevel);
+        ((childLevel <= self.maximumLevel) ||
+         (self.maximumLevel == MCChildrenNavigationControllerMaximumLevelNone));
 }
 
 - (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
