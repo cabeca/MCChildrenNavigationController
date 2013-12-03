@@ -27,7 +27,6 @@
         _maximumLevel = MCChildrenNavigationControllerMaximumLevelNone;
         
         _selectedNodeBlock = ^void(id<MCChildrenCollection> node, NSIndexPath *indexPath){};
-        _configureNavigationControllerBlock = ^void(UINavigationController *navigationController){};
         _configureChildrenViewControllerBlock = ^void(UIViewController *childrenViewController){};
         _configureEmptyViewControllerBlock = ^void(UIViewController *emptyViewController){};
         _configureTableViewBlock = ^void(UITableView *tableView){};
@@ -73,12 +72,6 @@
 }
 
 #pragma mark - UIViewController
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    self.configureNavigationControllerBlock(self);
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {

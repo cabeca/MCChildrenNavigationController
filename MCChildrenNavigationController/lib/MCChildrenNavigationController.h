@@ -22,7 +22,6 @@ typedef NS_ENUM(NSInteger, MCChildrenNavigationControllerMaximumLevel) {
 };
 
 typedef void (^selectedNodeBlock)(id<MCChildrenCollection> node, NSIndexPath *indexPath);
-typedef void (^configureNavigationControllerBlock)(UINavigationController *navigationController);
 typedef void (^configureChildrenViewControllerBlock)(UIViewController *childrenViewController);
 typedef void (^configureEmptyViewControllerBlock)(UIViewController *emptyViewController);
 typedef void (^configureTableViewBlock)(UITableView *tableView);
@@ -36,7 +35,6 @@ typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 @property (nonatomic, assign) NSInteger maximumLevel;
 
 @property (nonatomic, copy) selectedNodeBlock selectedNodeBlock;
-@property (nonatomic, copy) configureNavigationControllerBlock configureNavigationControllerBlock;
 @property (nonatomic, copy) configureChildrenViewControllerBlock configureChildrenViewControllerBlock;
 @property (nonatomic, copy) configureEmptyViewControllerBlock configureEmptyViewControllerBlock;
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
