@@ -7,6 +7,7 @@
 //
 
 #import "MCChildrenNavigationController.h"
+#import "MCEmptyViewController.h"
 #import "MCChildrenViewController.h"
 
 @interface MCChildrenNavigationController ()
@@ -92,13 +93,10 @@
 
 - (void)pushEmptyViewController
 {
-    UIViewController *emptyViewController = [[UIViewController alloc] init];
-    emptyViewController.navigationItem.title = @"Empty";
-    emptyViewController.view.backgroundColor = [UIColor whiteColor];
-
+    MCEmptyViewController *emptyViewController = [[MCEmptyViewController alloc] init];
     self.configureEmptyViewControllerBlock(emptyViewController);
 
-    [self pushViewController:emptyViewController animated:NO];
+    self.viewControllers = @[emptyViewController];
 }
 
 - (void)pushChildrenViewControllers

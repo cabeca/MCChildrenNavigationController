@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		243772E2185CAFF0002AD5B7 /* MCEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 243772E1185CAFF0002AD5B7 /* MCEmptyViewController.m */; };
 		24A5F25C184298D80027A226 /* MCArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F255184298D80027A226 /* MCArrayDataSource.m */; };
 		24A5F25D184298D80027A226 /* MCChildrenNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F258184298D80027A226 /* MCChildrenNavigationController.m */; };
 		24A5F25E184298D80027A226 /* MCChildrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F25A184298D80027A226 /* MCChildrenViewController.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		243772E0185CAFF0002AD5B7 /* MCEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCEmptyViewController.h; sourceTree = "<group>"; };
+		243772E1185CAFF0002AD5B7 /* MCEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCEmptyViewController.m; sourceTree = "<group>"; };
 		24A5F254184298D80027A226 /* MCArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCArrayDataSource.h; sourceTree = "<group>"; };
 		24A5F255184298D80027A226 /* MCArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCArrayDataSource.m; sourceTree = "<group>"; };
 		24A5F256184298D80027A226 /* MCChildrenCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCChildrenCollection.h; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 				24A5F259184298D80027A226 /* MCChildrenViewController.h */,
 				24A5F25A184298D80027A226 /* MCChildrenViewController.m */,
 				24A5F25B184298D80027A226 /* MCChildrenViewControllerDelegate.h */,
+				243772E0185CAFF0002AD5B7 /* MCEmptyViewController.h */,
+				243772E1185CAFF0002AD5B7 /* MCEmptyViewController.m */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				243772E2185CAFF0002AD5B7 /* MCEmptyViewController.m in Sources */,
 				24F6077A184108C000841DFC /* MCMainViewController.m in Sources */,
 				24F6077E18410AC900841DFC /* MCTreeNode.m in Sources */,
 				24F607591841084F00841DFC /* MCAppDelegate.m in Sources */,
