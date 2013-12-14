@@ -61,18 +61,19 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
+    __weak __typeof(self) weakSelf = self;
     TableViewCellConfigureBlock configureCell = ^(UITableViewCell* cell, id<MCChildrenCollection> item, NSIndexPath *indexPath) {
         cell.textLabel.text = item.label;
         cell.accessoryType = UITableViewCellAccessoryNone;
         
-        if ([self.delegate childrenViewController:self shouldSelectChildIndex:[indexPath row]]) {
+        if ([weakSelf.delegate childrenViewController:weakSelf shouldSelectChildIndex:[indexPath row]]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
-        if ([self.delegate childrenViewController:self canNavigateToChildIndex:[indexPath row]]) {
+        if ([weakSelf.delegate childrenViewController:weakSelf canNavigateToChildIndex:[indexPath row]]) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         
-        self.configureTableViewCellBlock(cell);
+        weakSelf.configureTableViewCellBlock(cell);
     };
     
     self.dataSource = [[MCArrayDataSource alloc] initWithItems:self.node.children
