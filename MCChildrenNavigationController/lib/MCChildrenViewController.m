@@ -73,6 +73,10 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         
+        if ([item respondsToSelector:@selector(image)]) {
+            cell.imageView.image = item.image;
+        }
+        
         weakSelf.configureTableViewCellBlock(cell);
     };
     

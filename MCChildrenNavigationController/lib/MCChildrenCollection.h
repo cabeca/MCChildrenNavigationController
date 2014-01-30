@@ -11,4 +11,6 @@
 @protocol MCChildrenCollection <NSObject>
 - (NSString *)label;
 - (NSArray *)children;
+@optional
+- (UIImage *)image;
 @end
