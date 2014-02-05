@@ -1,5 +1,5 @@
 //
-//  MCTableHeaderViewButton.m
+//  MCTableHeaderViewButton.h
 //  MCChildrenNavigationController
 //
 //  Created by Charly Liu Chou on 1/30/14.
