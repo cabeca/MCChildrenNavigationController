@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MCChildrenCollection.h"
 #import "MCChildrenViewControllerDelegate.h"
+#import "MCTableHeaderViewButton.h"
 
 typedef NS_ENUM(NSInteger, MCChildrenNavigationControllerSelectionMode) {
     MCChildrenNavigationControllerSelectionModeAll,
@@ -26,6 +27,7 @@ typedef void (^configureChildrenViewControllerBlock)(UIViewController *childrenV
 typedef void (^configureEmptyViewControllerBlock)(UIViewController *emptyViewController);
 typedef void (^configureTableViewBlock)(UITableView *tableView);
 typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
+typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 
 @interface MCChildrenNavigationController : UINavigationController <MCChildrenViewControllerDelegate>
 
@@ -39,6 +41,7 @@ typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 @property (nonatomic, copy) configureEmptyViewControllerBlock configureEmptyViewControllerBlock;
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
 @property (nonatomic, copy) configureTableViewCellBlock configureTableViewCellBlock;
+@property (nonatomic, copy) configureTableHeaderViewBlock configureTableHeaderViewBlock;
 
 - (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode;
 - (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode

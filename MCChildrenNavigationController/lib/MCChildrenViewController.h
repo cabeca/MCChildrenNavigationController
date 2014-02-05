@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MCChildrenCollection.h"
 #import "MCChildrenViewControllerDelegate.h"
+#import "MCTableHeaderViewButton.h"
 
 typedef void (^configureTableViewBlock)(UITableView *tableView);
 typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
+typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 
 @interface MCChildrenViewController : UIViewController <UITableViewDelegate>
 
@@ -24,6 +26,7 @@ typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
 @property (nonatomic, copy) configureTableViewCellBlock configureTableViewCellBlock;
+@property (nonatomic, copy) configureTableHeaderViewBlock configureTableHeaderViewBlock;
 
 - (id)initWithNode:(id<MCChildrenCollection>)aNode level:(NSInteger)aLevel index:(NSInteger)anIndex;
 

@@ -8,6 +8,7 @@
 
 #import "MCChildrenViewController.h"
 #import "MCArrayDataSource.h"
+#import "MCTableHeaderViewButton.h"
 
 @interface MCChildrenViewController ()
 @property (nonatomic, strong) MCArrayDataSource *dataSource;
@@ -21,6 +22,7 @@
     if (self) {
         _configureTableViewBlock = ^void(UITableView *tableView){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
+        _configureTableHeaderViewBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
     }
     return self;
 }
@@ -93,34 +95,38 @@
 {
     if ([self.delegate childrenViewControllerShouldShowAll:self]) {
         UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"All"]];
         
-        [tableHeaderView addSubview:segmentedControl];
-        
-        NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[segmentedControl]-(8)-|"
-                                                                               options:0
-                                                                               metrics:nil
-                                                                                 views:@{@"segmentedControl":segmentedControl}];
-        
-        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(32)-[segmentedControl]-(32)-|"
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:@{@"segmentedControl":segmentedControl}];
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
-//        tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
-        [tableHeaderView addConstraints:verticalConstraints];
-        [tableHeaderView addConstraints:horizontalConstraints];
+        MCTableHeaderViewButton *headerButton = [[MCTableHeaderViewButton alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 
-        
-        if ([self.delegate childrenViewControllerShouldSelectAll:self]) {
-            segmentedControl.selectedSegmentIndex = 0;
+        if ([self.node respondsToSelector:@selector(selectionAllLabel)] && self.node.selectionAllLabel) {
+            headerButton.titleLabel.text = self.node.selectionAllLabel;
         } else {
-            segmentedControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+            return;
         }
         
-        [segmentedControl addTarget:self
-                             action:@selector(didSelectAll)
-                   forControlEvents:UIControlEventValueChanged];
+        if ([self.node respondsToSelector:@selector(image)]) {
+            [headerButton setImage:self.node.image];
+        }
+        
+        [tableHeaderView addSubview:headerButton];
+        NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(0)-[button]-(0)-|"
+                                                                               options:0
+                                                                               metrics:nil
+                                                                                 views:@{@"button":headerButton}];
+        
+        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[button]-(4)-|"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:@{@"button":headerButton}];
+        headerButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [tableHeaderView addConstraints:verticalConstraints];
+        [tableHeaderView addConstraints:horizontalConstraints];
+        
+        self.configureTableHeaderViewBlock(headerButton,[self.delegate childrenViewControllerShouldSelectAll:self]);
+        
+        [headerButton addTarget:self
+                   action:@selector(didSelectAll)
+        forControlEvents:UIControlEventTouchUpInside];
         
         self.tableView.tableHeaderView = tableHeaderView;
     }
