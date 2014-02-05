@@ -1,9 +1,9 @@
 //
-//  MCTableHeaderViewButton.h
-//  Pods
+//  MCTableHeaderViewButton.m
+//  MCChildrenNavigationController
 //
 //  Created by Charly Liu Chou on 1/30/14.
-//
+//  Copyright (c) 2014 Miguel Cabeça. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
