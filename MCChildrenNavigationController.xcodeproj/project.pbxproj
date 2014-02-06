@@ -26,6 +26,7 @@
 		24F6077A184108C000841DFC /* MCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F60778184108C000841DFC /* MCMainViewController.m */; };
 		24F6077B184108C000841DFC /* MCMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24F60779184108C000841DFC /* MCMainViewController.xib */; };
 		24F6077E18410AC900841DFC /* MCTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6077D18410AC900841DFC /* MCTreeNode.m */; };
+		66C18807189A8FCB00855489 /* MCTableHeaderViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C18806189A8FCB00855489 /* MCTableHeaderViewButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		24F60779184108C000841DFC /* MCMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MCMainViewController.xib; sourceTree = "<group>"; };
 		24F6077C18410AC900841DFC /* MCTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCTreeNode.h; sourceTree = "<group>"; };
 		24F6077D18410AC900841DFC /* MCTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCTreeNode.m; sourceTree = "<group>"; };
+		66C18805189A8FCB00855489 /* MCTableHeaderViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCTableHeaderViewButton.h; sourceTree = "<group>"; };
+		66C18806189A8FCB00855489 /* MCTableHeaderViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCTableHeaderViewButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,8 @@
 		24A5F253184298D80027A226 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				66C18805189A8FCB00855489 /* MCTableHeaderViewButton.h */,
+				66C18806189A8FCB00855489 /* MCTableHeaderViewButton.m */,
 				24A5F254184298D80027A226 /* MCArrayDataSource.h */,
 				24A5F255184298D80027A226 /* MCArrayDataSource.m */,
 				24A5F256184298D80027A226 /* MCChildrenCollection.h */,
@@ -293,6 +298,7 @@
 				24F6077A184108C000841DFC /* MCMainViewController.m in Sources */,
 				24F6077E18410AC900841DFC /* MCTreeNode.m in Sources */,
 				24F607591841084F00841DFC /* MCAppDelegate.m in Sources */,
+				66C18807189A8FCB00855489 /* MCTableHeaderViewButton.m in Sources */,
 				24A5F25E184298D80027A226 /* MCChildrenViewController.m in Sources */,
 				24A5F25C184298D80027A226 /* MCArrayDataSource.m in Sources */,
 				24A5F25D184298D80027A226 /* MCChildrenNavigationController.m in Sources */,

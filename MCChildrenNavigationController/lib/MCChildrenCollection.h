@@ -13,4 +13,5 @@
 - (NSArray *)children;
 @optional
 - (UIImage *)image;
+- (NSString *)selectionAllLabel;
 @end

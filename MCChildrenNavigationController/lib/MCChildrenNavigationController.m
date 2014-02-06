@@ -32,6 +32,7 @@
         _configureEmptyViewControllerBlock = ^void(UIViewController *emptyViewController){};
         _configureTableViewBlock = ^void(UITableView *tableView){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
+        _configureTableHeaderViewBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
     }
     return self;
 }
@@ -145,6 +146,7 @@
     childrenViewController.delegate = self;
     childrenViewController.configureTableViewBlock = self.configureTableViewBlock;
     childrenViewController.configureTableViewCellBlock = self.configureTableViewCellBlock;
+    childrenViewController.configureTableHeaderViewBlock = self.configureTableHeaderViewBlock;
     self.configureChildrenViewControllerBlock(childrenViewController);
     
     [self pushViewController:childrenViewController animated:animated];
