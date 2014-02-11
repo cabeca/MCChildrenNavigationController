@@ -35,7 +35,7 @@
 
 - (void)createConstraints
 {
-    NSArray *HorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-1-[image]-10-[title]"
+    NSArray *HorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[image]-10-[title]"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:@{@"image":_imageView,
@@ -51,7 +51,7 @@
                                                                              options:0
                                                                              metrics:nil
                                                                                views:@{@"title":_titleLabel}];
-    NSArray *accessoryHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[accessoryView]-43-|"
+    NSArray *accessoryHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[accessoryView]-47-|"
                                                                                       options:0
                                                                                       metrics:nil
                                                                                         views:@{@"accessoryView":_accessoryParentView}];
@@ -78,18 +78,18 @@
     CGFloat titleMaxsize = 258.0;
     
     if (self.imageView.image){
-        _superToImageConstraint.constant = 11;
-        _imageToTitleConstraint.constant = 14;
+        self.superToImageConstraint.constant = 15;
+        self.imageToTitleConstraint.constant = 14;
         
         titleMaxsize = titleMaxsize - 36;
     }
     
     [self.titleLabel sizeToFit];
     if (self.titleLabel.bounds.size.width >= titleMaxsize){
-        NSArray *largeTitleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[title]-(43)-|"
+        NSArray *largeTitleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[title]-(47)-|"
                                                                                  options:0
                                                                                  metrics:nil
-                                                                                   views:@{@"title":_titleLabel}];
+                                                                                   views:@{@"title":self.titleLabel}];
         [self addConstraints:largeTitleConstraints];
     }
     
@@ -117,6 +117,19 @@
     [self.accessoryParentView addSubview:accessoryView];
     
     [self setNeedsUpdateConstraints];
+}
+
+- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    [super beginTrackingWithTouch:touch withEvent:event];
+    self.backgroundColor = self.selectedColor;
+    return YES;
+}
+
+- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    [super endTrackingWithTouch:touch withEvent:event];
+    self.backgroundColor = self.normalColor;
 }
 
 @end

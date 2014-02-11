@@ -17,6 +17,8 @@
 @property (nonatomic, strong, readonly) NSLayoutConstraint *superToImageConstraint;
 @property (nonatomic, strong, readonly) NSLayoutConstraint *imageToTitleConstraint;
 
+@property (nonatomic, strong) UIColor *normalColor;
+@property (nonatomic, strong) UIColor *selectedColor;
 
 - (void)setImage:(UIImage *)image;
 - (void)setAccessoryView:(UIView *)accessoryView;
