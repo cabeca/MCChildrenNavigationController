@@ -125,7 +125,7 @@
         self.configureTableHeaderViewBlock(headerButton,[self.delegate childrenViewControllerShouldSelectAll:self]);
         
         [headerButton addTarget:self
-                         action:@selector(didSelectAll:)
+                         action:@selector(didSelectAll)
         forControlEvents:UIControlEventTouchUpInside];
         
         self.tableView.tableHeaderView = tableHeaderView;
@@ -146,7 +146,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)didSelectAll:(id)headerButton
+- (void)didSelectAll
 {
     [self.delegate childrenViewControllerDidSelectAll:self];
 }
