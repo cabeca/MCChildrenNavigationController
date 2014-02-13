@@ -114,7 +114,7 @@
                                                                                metrics:nil
                                                                                  views:@{@"button":headerButton}];
         
-        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[button]-(4)-|"
+        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(0)-[button]-(0)-|"
                                                                                  options:0
                                                                                  metrics:nil
                                                                                    views:@{@"button":headerButton}];
@@ -125,7 +125,7 @@
         self.configureTableHeaderViewBlock(headerButton,[self.delegate childrenViewControllerShouldSelectAll:self]);
         
         [headerButton addTarget:self
-                   action:@selector(didSelectAll)
+                         action:@selector(didSelectAll)
         forControlEvents:UIControlEventTouchUpInside];
         
         self.tableView.tableHeaderView = tableHeaderView;
