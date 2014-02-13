@@ -148,9 +148,6 @@
 
 - (void)didSelectAll:(id)headerButton
 {
-    if ([headerButton isKindOfClass:[MCTableHeaderViewButton class]]){
-        ((MCTableHeaderViewButton *)headerButton).backgroundColor = ((MCTableHeaderViewButton *)headerButton).selectedColor;
-    }
     [self.delegate childrenViewControllerDidSelectAll:self];
 }
 

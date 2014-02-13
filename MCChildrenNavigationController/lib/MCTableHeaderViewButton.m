@@ -122,14 +122,20 @@
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super beginTrackingWithTouch:touch withEvent:event];
-    self.backgroundColor = self.selectedColor;
+    self.backgroundColor = self.selectedStateColor;
     return YES;
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super endTrackingWithTouch:touch withEvent:event];
-    self.backgroundColor = self.normalColor;
+    self.backgroundColor = self.normalStateColor;
+}
+
+- (void)sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event
+{
+    self.backgroundColor = self.selectedStateColor;
+    [super sendAction:action to:target forEvent:event];
 }
 
 @end
