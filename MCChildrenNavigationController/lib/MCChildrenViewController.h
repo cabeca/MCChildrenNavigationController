@@ -11,7 +11,7 @@
 #import "MCChildrenViewControllerDelegate.h"
 #import "MCTableHeaderViewButton.h"
 
-typedef void (^configureTableViewBlock)(UITableView *tableView);
+typedef void (^configureTableViewBlock)(UITableView *tableView, id<MCChildrenCollection> node);
 typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 

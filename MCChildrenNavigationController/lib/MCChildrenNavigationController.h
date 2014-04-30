@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, MCChildrenNavigationControllerMaximumLevel) {
 typedef void (^selectedNodeBlock)(id<MCChildrenCollection> node, NSIndexPath *indexPath);
 typedef void (^configureChildrenViewControllerBlock)(UIViewController *childrenViewController);
 typedef void (^configureEmptyViewControllerBlock)(UIViewController *emptyViewController);
-typedef void (^configureTableViewBlock)(UITableView *tableView);
+typedef void (^configureTableViewBlock)(UITableView *tableView, id<MCChildrenCollection> node);
 typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 

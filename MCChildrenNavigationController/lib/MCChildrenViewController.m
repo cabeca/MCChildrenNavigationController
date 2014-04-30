@@ -20,7 +20,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _configureTableViewBlock = ^void(UITableView *tableView){};
+        _configureTableViewBlock = ^void(UITableView *tableView, id<MCChildrenCollection> node){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
         _configureTableHeaderViewBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
     }
@@ -88,7 +88,7 @@
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
 
-    self.configureTableViewBlock(self.tableView);
+    self.configureTableViewBlock(self.tableView, self.node);
 }
 
 - (void)setupTableHeaderView
