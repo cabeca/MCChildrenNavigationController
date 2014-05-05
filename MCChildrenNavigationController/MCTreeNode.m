@@ -23,6 +23,6 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p> '%@' (%d children)", [self class], self, self.label, [self.children count]];
+    return [NSString stringWithFormat:@"<%@: %p> '%@' (%lu children)", [self class], self, self.label, (unsigned long)[self.children count]];
 }
 @end

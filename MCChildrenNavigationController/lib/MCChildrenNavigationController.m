@@ -30,7 +30,7 @@
         _selectedNodeBlock = ^void(id<MCChildrenCollection> node, NSIndexPath *indexPath){};
         _configureChildrenViewControllerBlock = ^void(UIViewController *childrenViewController){};
         _configureEmptyViewControllerBlock = ^void(UIViewController *emptyViewController){};
-        _configureTableViewBlock = ^void(UITableView *tableView){};
+        _configureTableViewBlock = ^void(UITableView *tableView, id<MCChildrenCollection> node){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
         _configureTableHeaderViewBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
     }
