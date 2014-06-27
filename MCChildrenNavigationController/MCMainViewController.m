@@ -55,7 +55,7 @@
     
     NSMutableArray *children = [[NSMutableArray alloc] init];
 
-    levelNumberOfNodes = arc4random_uniform(self.maximumNodesPerLevel) + 1;
+    levelNumberOfNodes = arc4random_uniform((uint32_t)self.maximumNodesPerLevel) + 1;
     for (currentNodeNumber = 0; currentNodeNumber < levelNumberOfNodes; currentNodeNumber++) {
         MCTreeNode *treeNode = [self generateNodeWithNumber:currentNodeNumber forLevel:level];
         [children addObject:treeNode];
@@ -67,7 +67,7 @@
 - (MCTreeNode *)generateNodeWithNumber:(NSInteger)number forLevel:(NSInteger)level
 {
     NSArray *children = [self generateChildrenForLevel:level+1];
-    MCTreeNode *treeNode = [[MCTreeNode alloc] initWithLabel:[NSString stringWithFormat:@"Level %d node number %d", level, number]
+    MCTreeNode *treeNode = [[MCTreeNode alloc] initWithLabel:[NSString stringWithFormat:@"Level %ld node number %ld", (long)level, (long)number]
                                                     children:children];
     return treeNode;
 }
