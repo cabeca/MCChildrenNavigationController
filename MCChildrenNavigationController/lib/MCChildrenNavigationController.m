@@ -81,7 +81,21 @@
     [self pushViewControllers];
 }
 
-#pragma mark - private
+#pragma mark - Public
+
+- (void)highlightSelectedNodeAnimated:(BOOL)animated
+{
+    MCChildrenViewController *childrenViewController = (MCChildrenViewController *)self.topViewController;
+    [childrenViewController selectRowInTableViewAnimated:animated];
+}
+
+- (void)unhighlightSelectedNodeAnimated:(BOOL)animated
+{
+    MCChildrenViewController *childrenViewController = (MCChildrenViewController *)self.topViewController;
+    [childrenViewController deselectRowInTableViewAnimated:animated];
+}
+
+#pragma mark - Private
 
 - (void)pushViewControllers
 {
