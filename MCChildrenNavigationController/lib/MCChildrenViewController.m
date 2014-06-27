@@ -51,13 +51,28 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self deselectRowInTableViewAnimated:animated];
+}
+
+#pragma mark - Public
+
+- (void)selectRowInTableViewAnimated:(BOOL)animated
+{
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    if (selectedIndexPath) {
+        [self.tableView selectRowAtIndexPath:selectedIndexPath animated:animated scrollPosition:UITableViewScrollPositionNone];
+    }
+}
+
+- (void)deselectRowInTableViewAnimated:(BOOL)animated
+{
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
     if (selectedIndexPath) {
         [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
     }
 }
 
-#pragma mark - private
+#pragma mark - Private
 - (void)setupTableView
 {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];

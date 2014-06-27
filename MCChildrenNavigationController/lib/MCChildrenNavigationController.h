@@ -50,5 +50,8 @@ typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, B
  selectedNodeIndexPath:(NSIndexPath *)aSelectedNodeIndexPath
      selectedNodeBlock:(selectedNodeBlock)aSelectedNodeBlock;
 
+- (void)highlightSelectedNodeAnimated:(BOOL)animated;
+- (void)unhighlightSelectedNodeAnimated:(BOOL)animated;
+
 @end
 

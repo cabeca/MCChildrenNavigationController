@@ -30,4 +30,7 @@ typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, B
 
 - (id)initWithNode:(id<MCChildrenCollection>)aNode level:(NSInteger)aLevel index:(NSInteger)anIndex;
 
+- (void)selectRowInTableViewAnimated:(BOOL)animated;
+- (void)deselectRowInTableViewAnimated:(BOOL)animated;
+
 @end
