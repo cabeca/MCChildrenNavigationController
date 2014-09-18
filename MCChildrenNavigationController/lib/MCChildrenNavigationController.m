@@ -203,6 +203,10 @@
 - (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
        canNavigateToChildIndex:(NSInteger)childIndex
 {
+    if ([childrenViewController.node.children count] <= childIndex) {
+        return NO;
+    }
+    
     id<MCChildrenCollection> child = childrenViewController.node.children[childIndex];
     NSInteger childLevel = childrenViewController.level + 1;
     
