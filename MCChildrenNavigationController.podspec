@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "MCChildrenNavigationController"
-  s.version      = "0.0.8"
+  s.version      = "0.0.9"
   s.summary      = "MCChildrenNavigationController displays tree structures in a navigation interface"
 
   s.description  = <<-DESC

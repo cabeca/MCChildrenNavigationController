@@ -8,9 +8,10 @@
 
 #import "MCTableHeaderViewButton.h"
 
-@interface MCTableHeaderViewButton (Constraints)
+@interface MCTableHeaderViewButton ()
 @property (nonatomic, strong) NSLayoutConstraint *superToImageConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *imageToTitleConstraint;
+@property (nonatomic, assign) CGFloat scaleAdjustment;
 @end
 
 @implementation MCTableHeaderViewButton
@@ -22,13 +23,14 @@
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
         _accessoryParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        _scaleAdjustment = [[UIScreen mainScreen] scale] == 3.0 ? 5.0f : 0.0f;
         
         [self addSubview:_imageView];
         [self addSubview:_titleLabel];
         [self addSubview:_accessoryParentView];
         
         [self createConstraints];
-
+        
     }
     return self;
 }
@@ -43,14 +45,17 @@
                                                                                        @"accessoryView":_accessoryParentView}];
     _superToImageConstraint = HorizontalConstraints[0];
     _imageToTitleConstraint = HorizontalConstraints[1];
+    
+    _superToImageConstraint.constant += self.scaleAdjustment;
+    
     NSArray *imageVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[image]"
                                                                                 options:0
                                                                                 metrics:nil
                                                                                   views:@{@"image":_imageView}];
     NSArray *titleVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[title]"
-                                                                             options:0
-                                                                             metrics:nil
-                                                                               views:@{@"title":_titleLabel}];
+                                                                                options:0
+                                                                                metrics:nil
+                                                                                  views:@{@"title":_titleLabel}];
     NSArray *accessoryHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[accessoryView]-47-|"
                                                                                       options:0
                                                                                       metrics:nil
@@ -80,6 +85,8 @@
     if (self.imageView.image){
         self.superToImageConstraint.constant = 15;
         self.imageToTitleConstraint.constant = 14;
+        
+        self.superToImageConstraint.constant += self.scaleAdjustment;
         
         titleMaxsize = titleMaxsize - 36;
     }
