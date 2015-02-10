@@ -25,10 +25,13 @@
 
 - (BOOL)childrenViewControllerShouldSelectAll:(MCChildrenViewController *)childrenViewController;
 
-
 - (void)childrenViewController:(MCChildrenViewController *)childrenViewController
            didSelectChildIndex:(NSInteger)childIndex;
 
 - (void)childrenViewControllerDidSelectAll:(MCChildrenViewController *)childrenViewController;
+
+- (BOOL)childrenViewControllerShouldShowSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController;
+
+- (BOOL)childrenViewControllerDidSelectSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController;
 
 @end
