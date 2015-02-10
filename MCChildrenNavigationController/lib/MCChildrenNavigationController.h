@@ -36,7 +36,7 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 @property (nonatomic, strong) NSIndexPath *selectedNodeIndexPath;
 @property (nonatomic, assign) MCChildrenNavigationControllerSelectionMode selectionMode;
 @property (nonatomic, assign) NSInteger maximumLevel;
-@property (nonatomic, assign) BOOL enableSpecialRootFeature;
+@property (nonatomic, assign, getter=isSpecialRootFeatureEnabled) BOOL specialRootFeatureEnabled;
 
 @property (nonatomic, copy) selectedNodeBlock selectedNodeBlock;
 @property (nonatomic, copy) configureChildrenViewControllerBlock configureChildrenViewControllerBlock;

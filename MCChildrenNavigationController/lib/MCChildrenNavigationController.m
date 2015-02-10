@@ -124,7 +124,6 @@
     }
 }
 
-
 - (MCChildrenViewController *)pushChildrenViewControllerForRootNode
 {
     return [self pushChildrenViewControllerForNode:self.rootNode level:0 index:-1 animated:NO];
@@ -147,7 +146,6 @@
         }
     }
 }
-
 
 - (MCChildrenViewController *)pushChildrenViewControllerForNode:(id<MCChildrenCollection>)node
                                     level:(NSInteger)level
@@ -198,8 +196,8 @@
     return indexPath;
 }
 
-
 #pragma mark - MCChildrenViewControllerDelegate
+
 - (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
        canNavigateToChildIndex:(NSInteger)childIndex
 {
@@ -244,7 +242,6 @@
         [self childrenViewControllerShouldShowAll:childrenViewController];
 }
 
-
 - (void)childrenViewController:(MCChildrenViewController *)childrenViewController
            didSelectChildIndex:(NSInteger)childIndex
 {
@@ -267,7 +264,11 @@
     self.selectedNodeIndexPath = [self indexPathForCurrentNode];
     self.selectedNodeBlock(node, self.selectedNodeIndexPath);
     return;
+}
 
+- (BOOL)childrenViewControllerShouldShowSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController
+{
+    return self.isSpecialRootFeatureEnabled && childrenViewController.level == 0;
 }
 
 @end
