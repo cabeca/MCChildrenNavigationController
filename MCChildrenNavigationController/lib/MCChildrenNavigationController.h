@@ -28,6 +28,7 @@ typedef void (^configureEmptyViewControllerBlock)(UIViewController *emptyViewCon
 typedef void (^configureTableViewBlock)(UITableView *tableView, id<MCChildrenCollection> node);
 typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
+typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 
 @interface MCChildrenNavigationController : UINavigationController <MCChildrenViewControllerDelegate>
 
