@@ -22,7 +22,7 @@
     if (self) {
         _configureTableViewBlock = ^void(UITableView *tableView, id<MCChildrenCollection> node){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
-        _configureTableHeaderViewBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
+        _configureAllNodeSelectionButtonBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
     }
     return self;
 }
@@ -137,7 +137,7 @@
         [tableHeaderView addConstraints:verticalConstraints];
         [tableHeaderView addConstraints:horizontalConstraints];
         
-        self.configureTableHeaderViewBlock(headerButton,[self.delegate childrenViewControllerShouldSelectAll:self]);
+        self.configureAllNodeSelectionButtonBlock(headerButton,[self.delegate childrenViewControllerShouldSelectAll:self]);
         
         [headerButton addTarget:self
                          action:@selector(didSelectAll)

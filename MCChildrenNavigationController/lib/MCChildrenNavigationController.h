@@ -27,7 +27,7 @@ typedef void (^configureChildrenViewControllerBlock)(UIViewController *childrenV
 typedef void (^configureEmptyViewControllerBlock)(UIViewController *emptyViewController);
 typedef void (^configureTableViewBlock)(UITableView *tableView, id<MCChildrenCollection> node);
 typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
-typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
+typedef void (^configureAllNodeSelectionButtonBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 
 @interface MCChildrenNavigationController : UINavigationController <MCChildrenViewControllerDelegate>
@@ -43,7 +43,7 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 @property (nonatomic, copy) configureEmptyViewControllerBlock configureEmptyViewControllerBlock;
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
 @property (nonatomic, copy) configureTableViewCellBlock configureTableViewCellBlock;
-@property (nonatomic, copy) configureTableHeaderViewBlock configureTableHeaderViewBlock;
+@property (nonatomic, copy) configureAllNodeSelectionButtonBlock configureAllNodeSelectionButtonBlock;
 
 - (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode;
 - (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode
