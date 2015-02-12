@@ -23,6 +23,7 @@
         _configureTableViewBlock = ^void(UITableView *tableView, id<MCChildrenCollection> node){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
         _configureAllNodeSelectionButtonBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
+        _configureSpecialRootFeatureButtonBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
     }
     return self;
 }

@@ -159,6 +159,7 @@
     childrenViewController.configureTableViewBlock = self.configureTableViewBlock;
     childrenViewController.configureTableViewCellBlock = self.configureTableViewCellBlock;
     childrenViewController.configureAllNodeSelectionButtonBlock = self.configureAllNodeSelectionButtonBlock;
+    childrenViewController.configureSpecialRootFeatureButtonBlock = self.configureSpecialRootFeatureButtonBlock;
     self.configureChildrenViewControllerBlock(childrenViewController);
     
     [self pushViewController:childrenViewController animated:animated];

@@ -14,6 +14,7 @@
 typedef void (^configureTableViewBlock)(UITableView *tableView, id<MCChildrenCollection> node);
 typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 typedef void (^configureAllNodeSelectionButtonBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
+typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 
 @interface MCChildrenViewController : UIViewController <UITableViewDelegate>
 
@@ -27,6 +28,7 @@ typedef void (^configureAllNodeSelectionButtonBlock)(MCTableHeaderViewButton *bu
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
 @property (nonatomic, copy) configureTableViewCellBlock configureTableViewCellBlock;
 @property (nonatomic, copy) configureAllNodeSelectionButtonBlock configureAllNodeSelectionButtonBlock;
+@property (nonatomic, copy) configureSpecialRootFeatureButtonBlock configureSpecialRootFeatureButtonBlock;
 
 - (id)initWithNode:(id<MCChildrenCollection>)aNode level:(NSInteger)aLevel index:(NSInteger)anIndex;
 

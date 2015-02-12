@@ -44,6 +44,7 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
 @property (nonatomic, copy) configureTableViewCellBlock configureTableViewCellBlock;
 @property (nonatomic, copy) configureAllNodeSelectionButtonBlock configureAllNodeSelectionButtonBlock;
+@property (nonatomic, copy) configureSpecialRootFeatureButtonBlock configureSpecialRootFeatureButtonBlock;
 
 - (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode;
 - (id)initWithRootNode:(id<MCChildrenCollection>)aRootNode
@@ -56,4 +57,3 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 - (void)unhighlightSelectedNodeAnimated:(BOOL)animated;
 
 @end
-
