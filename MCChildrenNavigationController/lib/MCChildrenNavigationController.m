@@ -272,4 +272,9 @@
     return self.isSpecialRootFeatureEnabled && childrenViewController.level == 0;
 }
 
+- (void)childrenViewControllerDidSelectSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController
+{
+    self.selectedSpecialRootFeatureBlock();
+}
+
 @end

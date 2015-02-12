@@ -32,6 +32,6 @@
 
 - (BOOL)childrenViewControllerShouldShowSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController;
 
-- (BOOL)childrenViewControllerDidSelectSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController;
+- (void)childrenViewControllerDidSelectSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController;
 
 @end

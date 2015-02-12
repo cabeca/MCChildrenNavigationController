@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, MCChildrenNavigationControllerMaximumLevel) {
 };
 
 typedef void (^selectedNodeBlock)(id<MCChildrenCollection> node, NSIndexPath *indexPath);
+typedef void (^selectedSpecialRootFeatureBlock)();
 typedef void (^configureChildrenViewControllerBlock)(UIViewController *childrenViewController);
 typedef void (^configureEmptyViewControllerBlock)(UIViewController *emptyViewController);
 typedef void (^configureTableViewBlock)(UITableView *tableView, id<MCChildrenCollection> node);
@@ -39,6 +40,7 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 @property (nonatomic, assign, getter=isSpecialRootFeatureEnabled) BOOL specialRootFeatureEnabled;
 
 @property (nonatomic, copy) selectedNodeBlock selectedNodeBlock;
+@property (nonatomic, copy) selectedSpecialRootFeatureBlock selectedSpecialRootFeatureBlock;
 @property (nonatomic, copy) configureChildrenViewControllerBlock configureChildrenViewControllerBlock;
 @property (nonatomic, copy) configureEmptyViewControllerBlock configureEmptyViewControllerBlock;
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
