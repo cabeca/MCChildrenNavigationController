@@ -145,4 +145,8 @@
     [super sendAction:action to:target forEvent:event];
 }
 
+- (CGSize)intrinsicContentSize {
+    return CGSizeMake(UIViewNoIntrinsicMetric, 44);
+}
+
 @end
