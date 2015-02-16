@@ -109,43 +109,59 @@
 
 - (void)setupTableHeaderView
 {
+    UIView *tableHeaderView = [[UIView alloc] init];
+    tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeWidth
+                                                              multiplier:1.0
+                                                                constant:0]];
+    self.tableView.tableHeaderView = tableHeaderView;
+    
     if ([self.delegate childrenViewControllerShouldShowAll:self]) {
-        UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        MCTableHeaderViewButton *allNodeSelectionButton = [[MCTableHeaderViewButton alloc] init];
+        allNodeSelectionButton.translatesAutoresizingMaskIntoConstraints = NO;
         
-        MCTableHeaderViewButton *headerButton = [[MCTableHeaderViewButton alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-
         if ([self.node respondsToSelector:@selector(selectionAllLabel)] && self.node.selectionAllLabel) {
-            headerButton.titleLabel.text = self.node.selectionAllLabel;
+            allNodeSelectionButton.titleLabel.text = self.node.selectionAllLabel;
         } else {
             return;
         }
         
         if ([self.node respondsToSelector:@selector(image)]) {
-            [headerButton setImage:self.node.image];
+            [allNodeSelectionButton setImage:self.node.image];
         }
         
-        [tableHeaderView addSubview:headerButton];
+        [tableHeaderView addSubview:allNodeSelectionButton];
+        
         NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(0)-[button]-(0)-|"
                                                                                options:0
                                                                                metrics:nil
-                                                                                 views:@{@"button":headerButton}];
+                                                                                 views:@{@"button":allNodeSelectionButton}];
         
         NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(0)-[button]-(0)-|"
                                                                                  options:0
                                                                                  metrics:nil
-                                                                                   views:@{@"button":headerButton}];
-        headerButton.translatesAutoresizingMaskIntoConstraints = NO;
+                                                                                   views:@{@"button":allNodeSelectionButton}];
+        allNodeSelectionButton.translatesAutoresizingMaskIntoConstraints = NO;
         [tableHeaderView addConstraints:verticalConstraints];
         [tableHeaderView addConstraints:horizontalConstraints];
         
-        self.configureAllNodeSelectionButtonBlock(headerButton,[self.delegate childrenViewControllerShouldSelectAll:self]);
+        self.configureAllNodeSelectionButtonBlock(allNodeSelectionButton, [self.delegate childrenViewControllerShouldSelectAll:self]);
         
-        [headerButton addTarget:self
-                         action:@selector(didSelectAll)
-        forControlEvents:UIControlEventTouchUpInside];
-        
-        self.tableView.tableHeaderView = tableHeaderView;
+        [allNodeSelectionButton addTarget:self
+                                   action:@selector(didSelectAll)
+                         forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    [tableHeaderView layoutIfNeeded];
+    CGFloat height = [tableHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    CGRect headerFrame = tableHeaderView.frame;
+    headerFrame.size.height = height;
+    tableHeaderView.frame = headerFrame;
+    self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)setupNavigationItems
