@@ -121,39 +121,7 @@
     self.tableView.tableHeaderView = tableHeaderView;
     
     if ([self.delegate childrenViewControllerShouldShowAllNodeSelectionButton:self]) {
-        MCTableHeaderViewButton *allNodeSelectionButton = [[MCTableHeaderViewButton alloc] init];
-        allNodeSelectionButton.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        if ([self.node respondsToSelector:@selector(selectionAllLabel)] && self.node.selectionAllLabel) {
-            allNodeSelectionButton.titleLabel.text = self.node.selectionAllLabel;
-        } else {
-            return;
-        }
-        
-        if ([self.node respondsToSelector:@selector(image)]) {
-            [allNodeSelectionButton setImage:self.node.image];
-        }
-        
-        [tableHeaderView addSubview:allNodeSelectionButton];
-        
-        NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(0)-[button]-(0)-|"
-                                                                               options:0
-                                                                               metrics:nil
-                                                                                 views:@{@"button":allNodeSelectionButton}];
-        
-        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(0)-[button]-(0)-|"
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:@{@"button":allNodeSelectionButton}];
-        allNodeSelectionButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [tableHeaderView addConstraints:verticalConstraints];
-        [tableHeaderView addConstraints:horizontalConstraints];
-        
-        self.configureAllNodeSelectionButtonBlock(allNodeSelectionButton, [self.delegate childrenViewControllerShouldSelectAllNodeSelectionButton:self]);
-        
-        [allNodeSelectionButton addTarget:self
-                                   action:@selector(didSelectAll)
-                         forControlEvents:UIControlEventTouchUpInside];
+        [self showAllNodeSelectionButton];
     }
     
     [tableHeaderView layoutIfNeeded];
@@ -162,6 +130,43 @@
     headerFrame.size.height = height;
     tableHeaderView.frame = headerFrame;
     self.tableView.tableHeaderView = tableHeaderView;
+}
+
+- (void)showAllNodeSelectionButton
+{
+    MCTableHeaderViewButton *allNodeSelectionButton = [[MCTableHeaderViewButton alloc] init];
+    allNodeSelectionButton.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    if ([self.node respondsToSelector:@selector(selectionAllLabel)] && self.node.selectionAllLabel) {
+        allNodeSelectionButton.titleLabel.text = self.node.selectionAllLabel;
+    } else {
+        return;
+    }
+    
+    if ([self.node respondsToSelector:@selector(image)]) {
+        [allNodeSelectionButton setImage:self.node.image];
+    }
+    
+    [self.tableView.tableHeaderView addSubview:allNodeSelectionButton];
+    
+    NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(0)-[button]-(0)-|"
+                                                                           options:0
+                                                                           metrics:nil
+                                                                             views:@{@"button":allNodeSelectionButton}];
+    
+    NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(0)-[button]-(0)-|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:@{@"button":allNodeSelectionButton}];
+    allNodeSelectionButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.tableView.tableHeaderView addConstraints:verticalConstraints];
+    [self.tableView.tableHeaderView addConstraints:horizontalConstraints];
+    
+    self.configureAllNodeSelectionButtonBlock(allNodeSelectionButton, [self.delegate childrenViewControllerShouldSelectAllNodeSelectionButton:self]);
+    
+    [allNodeSelectionButton addTarget:self
+                               action:@selector(didSelectAll)
+                     forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupNavigationItems
