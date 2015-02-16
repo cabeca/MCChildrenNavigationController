@@ -230,7 +230,7 @@
         [self childrenViewController:childrenViewController canSelectChildIndex:childIndex];
 }
 
-- (BOOL)childrenViewControllerShouldShowAll:(MCChildrenViewController *)childrenViewController
+- (BOOL)childrenViewControllerShouldShowAllNodeSelectionButton:(MCChildrenViewController *)childrenViewController
 {
     return (self.selectionMode == MCChildrenNavigationControllerSelectionModeAll) ||
         ((self.selectionMode == MCChildrenNavigationControllerSelectionModeNoRoot) &&
@@ -240,7 +240,7 @@
 - (BOOL)childrenViewControllerShouldSelectAll:(MCChildrenViewController *)childrenViewController
 {
     return (childrenViewController.node == [self selectedNode]) &&
-        [self childrenViewControllerShouldShowAll:childrenViewController];
+        [self childrenViewControllerShouldShowAllNodeSelectionButton:childrenViewController];
 }
 
 - (void)childrenViewController:(MCChildrenViewController *)childrenViewController

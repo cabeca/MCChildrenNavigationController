@@ -120,7 +120,7 @@
                                                                 constant:0]];
     self.tableView.tableHeaderView = tableHeaderView;
     
-    if ([self.delegate childrenViewControllerShouldShowAll:self]) {
+    if ([self.delegate childrenViewControllerShouldShowAllNodeSelectionButton:self]) {
         MCTableHeaderViewButton *allNodeSelectionButton = [[MCTableHeaderViewButton alloc] init];
         allNodeSelectionButton.translatesAutoresizingMaskIntoConstraints = NO;
         
