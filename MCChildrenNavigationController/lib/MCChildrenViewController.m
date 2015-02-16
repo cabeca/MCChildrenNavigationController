@@ -149,7 +149,7 @@
         [tableHeaderView addConstraints:verticalConstraints];
         [tableHeaderView addConstraints:horizontalConstraints];
         
-        self.configureAllNodeSelectionButtonBlock(allNodeSelectionButton, [self.delegate childrenViewControllerShouldSelectAll:self]);
+        self.configureAllNodeSelectionButtonBlock(allNodeSelectionButton, [self.delegate childrenViewControllerShouldSelectAllNodeSelectionButton:self]);
         
         [allNodeSelectionButton addTarget:self
                                    action:@selector(didSelectAll)

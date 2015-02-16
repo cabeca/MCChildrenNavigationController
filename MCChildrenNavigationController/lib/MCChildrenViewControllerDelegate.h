@@ -23,7 +23,7 @@
 
 - (BOOL)childrenViewControllerShouldShowAllNodeSelectionButton:(MCChildrenViewController *)childrenViewController;
 
-- (BOOL)childrenViewControllerShouldSelectAll:(MCChildrenViewController *)childrenViewController;
+- (BOOL)childrenViewControllerShouldSelectAllNodeSelectionButton:(MCChildrenViewController *)childrenViewController;
 
 - (void)childrenViewController:(MCChildrenViewController *)childrenViewController
            didSelectChildIndex:(NSInteger)childIndex;

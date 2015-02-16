@@ -237,7 +237,7 @@
          (childrenViewController.level != 0));
 }
 
-- (BOOL)childrenViewControllerShouldSelectAll:(MCChildrenViewController *)childrenViewController
+- (BOOL)childrenViewControllerShouldSelectAllNodeSelectionButton:(MCChildrenViewController *)childrenViewController
 {
     return (childrenViewController.node == [self selectedNode]) &&
         [self childrenViewControllerShouldShowAllNodeSelectionButton:childrenViewController];
