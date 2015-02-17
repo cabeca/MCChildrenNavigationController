@@ -46,7 +46,6 @@
     [self setupTableView];
     [self setupTableHeaderView];
     [self.view addSubview:self.tableView];
-
     [self setupNavigationItems];
 }
 
@@ -157,11 +156,7 @@
                                                                     constant:0]];
     }
     
-    CGFloat height = [tableHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    CGRect headerFrame = tableHeaderView.frame;
-    headerFrame.size.height = height;
-    tableHeaderView.frame = headerFrame;
-    self.tableView.tableHeaderView = tableHeaderView;
+    [self adjustFrameForTableHeaderView:tableHeaderView];
 }
 
 - (void)showAllNodeSelectionButton
@@ -248,6 +243,15 @@
     self.configureSpecialRootFeatureButtonBlock(button, [self.delegate childrenViewControllerShouldSelectSpecialRootFeatureButton:self]);
     
     [button addTarget:self action:@selector(didSelectSpecialRootFeature) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)adjustFrameForTableHeaderView:(UIView *)tableHeaderView
+{
+    CGFloat height = [tableHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    CGRect headerFrame = tableHeaderView.frame;
+    headerFrame.size.height = height;
+    tableHeaderView.frame = headerFrame;
+    self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)setupNavigationItems
