@@ -111,6 +111,16 @@
 {
     UIView *tableHeaderView = [[UIView alloc] init];
     tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.tableView.tableHeaderView = tableHeaderView;
+    
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeTop
+                                                              multiplier:1.0
+                                                                constant:0]];
+    
     [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
                                                                attribute:NSLayoutAttributeWidth
                                                                relatedBy:NSLayoutRelationEqual
@@ -118,13 +128,31 @@
                                                                attribute:NSLayoutAttributeWidth
                                                               multiplier:1.0
                                                                 constant:0]];
-    self.tableView.tableHeaderView = tableHeaderView;
+    
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeLeft
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeLeft
+                                                              multiplier:1.0
+                                                                constant:0]];
+    
     
     if ([self.delegate childrenViewControllerShouldShowAllNodeSelectionButton:self]) {
         [self showAllNodeSelectionButton];
     }
     
-    [tableHeaderView layoutIfNeeded];
+    UIView *lastView = [[tableHeaderView subviews] lastObject];
+    if (lastView) {
+        [tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:lastView
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:0]];
+    }
+    
     CGFloat height = [tableHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     CGRect headerFrame = tableHeaderView.frame;
     headerFrame.size.height = height;
@@ -147,19 +175,31 @@
         [allNodeSelectionButton setImage:self.node.image];
     }
     
+    UIView *lastView = [[self.tableView.tableHeaderView subviews] lastObject];
     [self.tableView.tableHeaderView addSubview:allNodeSelectionButton];
-    
-    NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(0)-[button]-(0)-|"
-                                                                           options:0
-                                                                           metrics:nil
-                                                                             views:@{@"button":allNodeSelectionButton}];
-    
+    if (lastView) {
+        [self.tableView.tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:lastView
+                                                             attribute:NSLayoutAttributeBottom
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:allNodeSelectionButton
+                                                             attribute:NSLayoutAttributeTop
+                                                            multiplier:1.0
+                                                              constant:0]];
+    }
+    else {
+        [self.tableView.tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView.tableHeaderView
+                                                                    attribute:NSLayoutAttributeTop
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:allNodeSelectionButton
+                                                                    attribute:NSLayoutAttributeTop
+                                                                   multiplier:1.0
+                                                                     constant:0]];
+    }
     NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(0)-[button]-(0)-|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:@{@"button":allNodeSelectionButton}];
     allNodeSelectionButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.tableView.tableHeaderView addConstraints:verticalConstraints];
     [self.tableView.tableHeaderView addConstraints:horizontalConstraints];
     
     self.configureAllNodeSelectionButtonBlock(allNodeSelectionButton, [self.delegate childrenViewControllerShouldSelectAllNodeSelectionButton:self]);
