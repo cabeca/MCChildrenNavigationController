@@ -71,6 +71,7 @@
 		24F60779184108C000841DFC /* MCMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MCMainViewController.xib; sourceTree = "<group>"; };
 		24F6077C18410AC900841DFC /* MCTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCTreeNode.h; sourceTree = "<group>"; };
 		24F6077D18410AC900841DFC /* MCTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCTreeNode.m; sourceTree = "<group>"; };
+		4B62FE641A9385F400A26AAC /* MCChildrenViewControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCChildrenViewControllerDataSource.h; sourceTree = "<group>"; };
 		66C18805189A8FCB00855489 /* MCTableHeaderViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCTableHeaderViewButton.h; sourceTree = "<group>"; };
 		66C18806189A8FCB00855489 /* MCTableHeaderViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCTableHeaderViewButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +115,7 @@
 				24A5F25B184298D80027A226 /* MCChildrenViewControllerDelegate.h */,
 				243772E0185CAFF0002AD5B7 /* MCEmptyViewController.h */,
 				243772E1185CAFF0002AD5B7 /* MCEmptyViewController.m */,
+				4B62FE641A9385F400A26AAC /* MCChildrenViewControllerDataSource.h */,
 			);
 			path = lib;
 			sourceTree = "<group>";
