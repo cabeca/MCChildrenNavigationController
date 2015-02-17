@@ -109,34 +109,7 @@
 - (void)setupTableHeaderView
 {
     UIView *tableHeaderView = [[UIView alloc] init];
-    tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.tableHeaderView = tableHeaderView;
-    
-    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
-                                                               attribute:NSLayoutAttributeTop
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.tableView
-                                                               attribute:NSLayoutAttributeTop
-                                                              multiplier:1.0
-                                                                constant:0]];
-    
-    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
-                                                               attribute:NSLayoutAttributeWidth
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.tableView
-                                                               attribute:NSLayoutAttributeWidth
-                                                              multiplier:1.0
-                                                                constant:0]];
-    
-    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
-                                                               attribute:NSLayoutAttributeLeft
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.tableView
-                                                               attribute:NSLayoutAttributeLeft
-                                                              multiplier:1.0
-                                                                constant:0]];
-    
-    
     if ([self.delegate childrenViewControllerShouldShowSpecialRootFeatureButton:self]) {
         [self showSpecialRootFeatureButton];
     }
@@ -144,18 +117,7 @@
     if ([self.delegate childrenViewControllerShouldShowAllNodeSelectionButton:self]) {
         [self showAllNodeSelectionButton];
     }
-    
-    UIView *lastView = [[tableHeaderView subviews] lastObject];
-    if (lastView) {
-        [tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:lastView
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                  multiplier:1.0
-                                                                    constant:0]];
-    }
-    
+    [self setupConstraintsForTableHeaderView:tableHeaderView];
     [self adjustFrameForTableHeaderView:tableHeaderView];
 }
 
@@ -182,6 +144,45 @@
     [self setupConstraintsForTableHeaderViewButton:button];
     self.configureSpecialRootFeatureButtonBlock(button, [self.delegate childrenViewControllerShouldSelectSpecialRootFeatureButton:self]);
     [button addTarget:self action:@selector(didSelectSpecialRootFeature) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setupConstraintsForTableHeaderView:(UIView *)tableHeaderView
+{
+    tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeTop
+                                                              multiplier:1.0
+                                                                constant:0]];
+
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeWidth
+                                                              multiplier:1.0
+                                                                constant:0]];
+    
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeLeft
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeLeft
+                                                              multiplier:1.0
+                                                                constant:0]];
+    
+    UIView *lastView = [[tableHeaderView subviews] lastObject];
+    if (lastView) {
+        [tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                                    attribute:NSLayoutAttributeBottom
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:lastView
+                                                                    attribute:NSLayoutAttributeBottom
+                                                                   multiplier:1.0
+                                                                     constant:0]];
+    }
 }
 
 - (void)setupConstraintsForTableHeaderViewButton:(MCTableHeaderViewButton *)button
