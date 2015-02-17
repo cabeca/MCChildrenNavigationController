@@ -245,7 +245,7 @@
     button.translatesAutoresizingMaskIntoConstraints = NO;
     [self.tableView.tableHeaderView addConstraints:horizontalConstraints];
     
-    self.configureSpecialRootFeatureButtonBlock(button, [self.delegate childrenViewControllerShouldSelectAllNodeSelectionButton:self]);
+    self.configureSpecialRootFeatureButtonBlock(button, [self.delegate childrenViewControllerShouldSelectSpecialRootFeatureButton:self]);
     
     [button addTarget:self action:@selector(didSelectSpecialRootFeature) forControlEvents:UIControlEventTouchUpInside];
 }

@@ -257,6 +257,7 @@
         NSInteger level = childrenViewController.level + 1;
         [self pushChildrenViewControllerForNode:node level:level index:childIndex animated:YES];
     }
+    self.specialRootFeatureSelected = NO;
 }
 
 - (void)childrenViewControllerDidSelectAll:(MCChildrenViewController *)childrenViewController
@@ -265,6 +266,7 @@
 
     self.selectedNodeIndexPath = [self indexPathForCurrentNode];
     self.selectedNodeBlock(node, self.selectedNodeIndexPath);
+    self.specialRootFeatureSelected = NO;
     return;
 }
 
@@ -273,8 +275,15 @@
     return self.isSpecialRootFeatureEnabled && childrenViewController.level == 0;
 }
 
+- (BOOL)childrenViewControllerShouldSelectSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController
+{
+    return self.isSpecialRootFeatureEnabled && self.isSpecialRootFeatureSelected;
+}
+
 - (void)childrenViewControllerDidSelectSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController
 {
+    self.specialRootFeatureSelected = YES;
+    self.selectedNodeIndexPath = nil;
     self.selectedSpecialRootFeatureBlock();
 }
 

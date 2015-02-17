@@ -39,6 +39,7 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 @property (nonatomic, assign) MCChildrenNavigationControllerSelectionMode selectionMode;
 @property (nonatomic, assign) NSInteger maximumLevel;
 @property (nonatomic, assign, getter=isSpecialRootFeatureEnabled) BOOL specialRootFeatureEnabled;
+@property (nonatomic, assign, getter=isSpecialRootFeatureSelected) BOOL specialRootFeatureSelected;
 @property (nonatomic, copy) NSString *specialRootFeatureTitle;
 
 @property (nonatomic, copy) selectedNodeBlock selectedNodeBlock;
