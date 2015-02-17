@@ -216,6 +216,8 @@
     MCTableHeaderViewButton *button = [[MCTableHeaderViewButton alloc] init];
     button.translatesAutoresizingMaskIntoConstraints = NO;
     
+    button.titleLabel.text = [self.childrenViewControllerDataSource titleForSpecialRootFeatureInChildrenViewController:self];
+    
     UIView *lastView = [[self.tableView.tableHeaderView subviews] lastObject];
     [self.tableView.tableHeaderView addSubview:button];
     if (lastView) {

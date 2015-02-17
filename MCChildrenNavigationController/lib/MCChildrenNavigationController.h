@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MCChildrenCollection.h"
+#import "MCChildrenViewControllerDataSource.h"
 #import "MCChildrenViewControllerDelegate.h"
 #import "MCTableHeaderViewButton.h"
 
@@ -31,13 +32,14 @@ typedef void (^configureTableViewCellBlock)(UITableViewCell *cell);
 typedef void (^configureAllNodeSelectionButtonBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *button, BOOL isSelected);
 
-@interface MCChildrenNavigationController : UINavigationController <MCChildrenViewControllerDelegate>
+@interface MCChildrenNavigationController : UINavigationController <MCChildrenViewControllerDelegate, MCChildrenViewControllerDataSource>
 
 @property (nonatomic, strong) id<MCChildrenCollection> rootNode;
 @property (nonatomic, strong) NSIndexPath *selectedNodeIndexPath;
 @property (nonatomic, assign) MCChildrenNavigationControllerSelectionMode selectionMode;
 @property (nonatomic, assign) NSInteger maximumLevel;
 @property (nonatomic, assign, getter=isSpecialRootFeatureEnabled) BOOL specialRootFeatureEnabled;
+@property (nonatomic, copy) NSString *specialRootFeatureTitle;
 
 @property (nonatomic, copy) selectedNodeBlock selectedNodeBlock;
 @property (nonatomic, copy) selectedSpecialRootFeatureBlock selectedSpecialRootFeatureBlock;
