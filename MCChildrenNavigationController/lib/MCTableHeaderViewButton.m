@@ -8,6 +8,9 @@
 
 #import "MCTableHeaderViewButton.h"
 
+static const CGFloat MCTableHeaderViewButtonDefaultHeight = 44.0f;
+static const CGFloat MCTableHeaderViewButtonDefaultWidth = 100.0f;
+
 @interface MCTableHeaderViewButton ()
 @property (nonatomic, strong) NSLayoutConstraint *superToImageConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *imageToTitleConstraint;
@@ -20,9 +23,9 @@
 {
     self = [super initWithFrame:frame];
     if (self){
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-        _accessoryParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MCTableHeaderViewButtonDefaultHeight, MCTableHeaderViewButtonDefaultHeight)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MCTableHeaderViewButtonDefaultWidth, MCTableHeaderViewButtonDefaultHeight)];
+        _accessoryParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MCTableHeaderViewButtonDefaultHeight, MCTableHeaderViewButtonDefaultHeight)];
         _scaleAdjustment = [[UIScreen mainScreen] scale] == 3.0 ? 5.0f : 0.0f;
         
         [self addSubview:_imageView];
@@ -146,7 +149,7 @@
 }
 
 - (CGSize)intrinsicContentSize {
-    return CGSizeMake(UIViewNoIntrinsicMetric, 44);
+    return CGSizeMake(UIViewNoIntrinsicMetric, MCTableHeaderViewButtonDefaultHeight);
 }
 
 @end
