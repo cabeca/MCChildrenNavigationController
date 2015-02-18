@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MCChildrenCollection.h"
-#import "MCChildrenViewControllerDataSource.h"
 #import "MCChildrenViewControllerDelegate.h"
 #import "MCTableHeaderViewButton.h"
 
@@ -25,7 +24,6 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 @property (nonatomic, assign) NSInteger index;
 
 @property (nonatomic, weak) id<MCChildrenViewControllerDelegate> delegate;
-@property (nonatomic, weak) id<MCChildrenViewControllerDataSource> childrenViewControllerDataSource;
 
 @property (nonatomic, copy) configureTableViewBlock configureTableViewBlock;
 @property (nonatomic, copy) configureTableViewCellBlock configureTableViewCellBlock;

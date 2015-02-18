@@ -140,7 +140,7 @@
 - (void)showSpecialRootFeatureButton
 {
     MCTableHeaderViewButton *button = [[MCTableHeaderViewButton alloc] init];
-    button.titleLabel.text = [self.childrenViewControllerDataSource titleForSpecialRootFeatureInChildrenViewController:self];
+    button.titleLabel.text = @"Special Root Feature";
     [self setupConstraintsForTableHeaderViewButton:button];
     self.configureSpecialRootFeatureButtonBlock(button, [self.delegate childrenViewControllerShouldSelectSpecialRootFeatureButton:self]);
     [button addTarget:self action:@selector(didSelectSpecialRootFeature) forControlEvents:UIControlEventTouchUpInside];

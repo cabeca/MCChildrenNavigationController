@@ -156,7 +156,6 @@
         [[MCChildrenViewController alloc] initWithNode:node level:level index:index];
 
     childrenViewController.delegate = self;
-    childrenViewController.childrenViewControllerDataSource = self;
     childrenViewController.configureTableViewBlock = self.configureTableViewBlock;
     childrenViewController.configureTableViewCellBlock = self.configureTableViewCellBlock;
     childrenViewController.configureAllNodeSelectionButtonBlock = self.configureAllNodeSelectionButtonBlock;
@@ -285,13 +284,6 @@
     self.specialRootFeatureSelected = YES;
     self.selectedNodeIndexPath = nil;
     self.selectedSpecialRootFeatureBlock();
-}
-
-#pragma mark - MCChildrenViewControllerDataSource
-
-- (NSString *)titleForSpecialRootFeatureInChildrenViewController:(MCChildrenViewController *)childrenViewController
-{
-    return self.specialRootFeatureTitle;
 }
 
 @end
