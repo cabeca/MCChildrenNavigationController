@@ -22,7 +22,8 @@
     if (self) {
         _configureTableViewBlock = ^void(UITableView *tableView, id<MCChildrenCollection> node){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
-        _configureTableHeaderViewBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
+        _configureAllNodeSelectionButtonBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
+        _configureSpecialRootFeatureButtonBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
     }
     return self;
 }
@@ -45,7 +46,6 @@
     [self setupTableView];
     [self setupTableHeaderView];
     [self.view addSubview:self.tableView];
-
     [self setupNavigationItems];
 }
 
@@ -109,43 +109,119 @@
 
 - (void)setupTableHeaderView
 {
-    if ([self.delegate childrenViewControllerShouldShowAll:self]) {
-        UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        
-        MCTableHeaderViewButton *headerButton = [[MCTableHeaderViewButton alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-
-        if ([self.node respondsToSelector:@selector(selectionAllLabel)] && self.node.selectionAllLabel) {
-            headerButton.titleLabel.text = self.node.selectionAllLabel;
-        } else {
-            return;
-        }
-        
-        if ([self.node respondsToSelector:@selector(image)]) {
-            [headerButton setImage:self.node.image];
-        }
-        
-        [tableHeaderView addSubview:headerButton];
-        NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(0)-[button]-(0)-|"
-                                                                               options:0
-                                                                               metrics:nil
-                                                                                 views:@{@"button":headerButton}];
-        
-        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(0)-[button]-(0)-|"
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:@{@"button":headerButton}];
-        headerButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [tableHeaderView addConstraints:verticalConstraints];
-        [tableHeaderView addConstraints:horizontalConstraints];
-        
-        self.configureTableHeaderViewBlock(headerButton,[self.delegate childrenViewControllerShouldSelectAll:self]);
-        
-        [headerButton addTarget:self
-                         action:@selector(didSelectAll)
-        forControlEvents:UIControlEventTouchUpInside];
-        
-        self.tableView.tableHeaderView = tableHeaderView;
+    UIView *tableHeaderView = [[UIView alloc] init];
+    self.tableView.tableHeaderView = tableHeaderView;
+    if ([self.delegate childrenViewControllerShouldShowSpecialRootFeatureButton:self]) {
+        [self showSpecialRootFeatureButton];
     }
+    
+    if ([self.delegate childrenViewControllerShouldShowAllNodeSelectionButton:self]) {
+        [self showAllNodeSelectionButton];
+    }
+    [self setupConstraintsForTableHeaderView:tableHeaderView];
+    [self adjustFrameForTableHeaderView:tableHeaderView];
+}
+
+- (void)showAllNodeSelectionButton
+{
+    MCTableHeaderViewButton *button = [[MCTableHeaderViewButton alloc] init];
+    if ([self.node respondsToSelector:@selector(selectionAllLabel)] && self.node.selectionAllLabel) {
+        button.titleLabel.text = self.node.selectionAllLabel;
+    } else {
+        return;
+    }
+    if ([self.node respondsToSelector:@selector(image)]) {
+        [button setImage:self.node.image];
+    }
+    [self setupConstraintsForTableHeaderViewButton:button];
+    self.configureAllNodeSelectionButtonBlock(button, [self.delegate childrenViewControllerShouldSelectAllNodeSelectionButton:self]);
+    [button addTarget:self action:@selector(didSelectAll) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)showSpecialRootFeatureButton
+{
+    MCTableHeaderViewButton *button = [[MCTableHeaderViewButton alloc] init];
+    button.titleLabel.text = @"Special Root Feature";
+    [self setupConstraintsForTableHeaderViewButton:button];
+    self.configureSpecialRootFeatureButtonBlock(button, [self.delegate childrenViewControllerShouldSelectSpecialRootFeatureButton:self]);
+    [button addTarget:self action:@selector(didSelectSpecialRootFeature) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setupConstraintsForTableHeaderView:(UIView *)tableHeaderView
+{
+    tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeTop
+                                                              multiplier:1.0
+                                                                constant:0]];
+
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeWidth
+                                                              multiplier:1.0
+                                                                constant:0]];
+    
+    [self.tableView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                               attribute:NSLayoutAttributeLeft
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.tableView
+                                                               attribute:NSLayoutAttributeLeft
+                                                              multiplier:1.0
+                                                                constant:0]];
+    
+    UIView *lastView = [[tableHeaderView subviews] lastObject];
+    if (lastView) {
+        [tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:tableHeaderView
+                                                                    attribute:NSLayoutAttributeBottom
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:lastView
+                                                                    attribute:NSLayoutAttributeBottom
+                                                                   multiplier:1.0
+                                                                     constant:0]];
+    }
+}
+
+- (void)setupConstraintsForTableHeaderViewButton:(MCTableHeaderViewButton *)button
+{
+    button.translatesAutoresizingMaskIntoConstraints = NO;
+    UIView *lastView = [[self.tableView.tableHeaderView subviews] lastObject];
+    [self.tableView.tableHeaderView addSubview:button];
+    if (lastView) {
+        [self.tableView.tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:lastView
+                                                                                   attribute:NSLayoutAttributeBottom
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:button
+                                                                                   attribute:NSLayoutAttributeTop
+                                                                                  multiplier:1.0
+                                                                                    constant:0]];
+    }
+    else {
+        [self.tableView.tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView.tableHeaderView
+                                                                                   attribute:NSLayoutAttributeTop
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:button
+                                                                                   attribute:NSLayoutAttributeTop
+                                                                                  multiplier:1.0
+                                                                                    constant:0]];
+    }
+    [self.tableView.tableHeaderView addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(0)-[button]-(0)-|"
+                                                                                            options:0
+                                                                                            metrics:nil
+                                                                                              views:@{@"button":button}]];
+}
+
+- (void)adjustFrameForTableHeaderView:(UIView *)tableHeaderView
+{
+    CGFloat height = [tableHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    CGRect headerFrame = tableHeaderView.frame;
+    headerFrame.size.height = height;
+    tableHeaderView.frame = headerFrame;
+    self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)setupNavigationItems
@@ -165,6 +241,11 @@
 - (void)didSelectAll
 {
     [self.delegate childrenViewControllerDidSelectAll:self];
+}
+
+- (void)didSelectSpecialRootFeature
+{
+    [self.delegate childrenViewControllerDidSelectSpecialRootFeatureButton:self];
 }
 
 #pragma mark - UITableViewDelegate

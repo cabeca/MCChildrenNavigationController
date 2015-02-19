@@ -32,7 +32,7 @@
         _configureEmptyViewControllerBlock = ^void(UIViewController *emptyViewController){};
         _configureTableViewBlock = ^void(UITableView *tableView, id<MCChildrenCollection> node){};
         _configureTableViewCellBlock = ^void(UITableViewCell *cell){};
-        _configureTableHeaderViewBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
+        _configureAllNodeSelectionButtonBlock = ^void(MCTableHeaderViewButton *button, BOOL isSelected){};
     }
     return self;
 }
@@ -124,7 +124,6 @@
     }
 }
 
-
 - (MCChildrenViewController *)pushChildrenViewControllerForRootNode
 {
     return [self pushChildrenViewControllerForNode:self.rootNode level:0 index:-1 animated:NO];
@@ -148,7 +147,6 @@
     }
 }
 
-
 - (MCChildrenViewController *)pushChildrenViewControllerForNode:(id<MCChildrenCollection>)node
                                     level:(NSInteger)level
                                     index:(NSInteger)index
@@ -160,7 +158,8 @@
     childrenViewController.delegate = self;
     childrenViewController.configureTableViewBlock = self.configureTableViewBlock;
     childrenViewController.configureTableViewCellBlock = self.configureTableViewCellBlock;
-    childrenViewController.configureTableHeaderViewBlock = self.configureTableHeaderViewBlock;
+    childrenViewController.configureAllNodeSelectionButtonBlock = self.configureAllNodeSelectionButtonBlock;
+    childrenViewController.configureSpecialRootFeatureButtonBlock = self.configureSpecialRootFeatureButtonBlock;
     self.configureChildrenViewControllerBlock(childrenViewController);
     
     [self pushViewController:childrenViewController animated:animated];
@@ -198,8 +197,8 @@
     return indexPath;
 }
 
-
 #pragma mark - MCChildrenViewControllerDelegate
+
 - (BOOL)childrenViewController:(MCChildrenViewController *)childrenViewController
        canNavigateToChildIndex:(NSInteger)childIndex
 {
@@ -231,19 +230,18 @@
         [self childrenViewController:childrenViewController canSelectChildIndex:childIndex];
 }
 
-- (BOOL)childrenViewControllerShouldShowAll:(MCChildrenViewController *)childrenViewController
+- (BOOL)childrenViewControllerShouldShowAllNodeSelectionButton:(MCChildrenViewController *)childrenViewController
 {
     return (self.selectionMode == MCChildrenNavigationControllerSelectionModeAll) ||
         ((self.selectionMode == MCChildrenNavigationControllerSelectionModeNoRoot) &&
          (childrenViewController.level != 0));
 }
 
-- (BOOL)childrenViewControllerShouldSelectAll:(MCChildrenViewController *)childrenViewController
+- (BOOL)childrenViewControllerShouldSelectAllNodeSelectionButton:(MCChildrenViewController *)childrenViewController
 {
     return (childrenViewController.node == [self selectedNode]) &&
-        [self childrenViewControllerShouldShowAll:childrenViewController];
+        [self childrenViewControllerShouldShowAllNodeSelectionButton:childrenViewController];
 }
-
 
 - (void)childrenViewController:(MCChildrenViewController *)childrenViewController
            didSelectChildIndex:(NSInteger)childIndex
@@ -258,6 +256,7 @@
         NSInteger level = childrenViewController.level + 1;
         [self pushChildrenViewControllerForNode:node level:level index:childIndex animated:YES];
     }
+    self.specialRootFeatureSelected = NO;
 }
 
 - (void)childrenViewControllerDidSelectAll:(MCChildrenViewController *)childrenViewController
@@ -266,8 +265,25 @@
 
     self.selectedNodeIndexPath = [self indexPathForCurrentNode];
     self.selectedNodeBlock(node, self.selectedNodeIndexPath);
+    self.specialRootFeatureSelected = NO;
     return;
+}
 
+- (BOOL)childrenViewControllerShouldShowSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController
+{
+    return self.isSpecialRootFeatureEnabled && childrenViewController.level == 0;
+}
+
+- (BOOL)childrenViewControllerShouldSelectSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController
+{
+    return self.isSpecialRootFeatureEnabled && self.isSpecialRootFeatureSelected;
+}
+
+- (void)childrenViewControllerDidSelectSpecialRootFeatureButton:(MCChildrenViewController *)childrenViewController
+{
+    self.specialRootFeatureSelected = YES;
+    self.selectedNodeIndexPath = nil;
+    self.selectedSpecialRootFeatureBlock();
 }
 
 @end
