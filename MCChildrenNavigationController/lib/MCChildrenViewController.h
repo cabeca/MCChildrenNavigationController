@@ -32,5 +32,6 @@ typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, B
 
 - (void)selectRowInTableViewAnimated:(BOOL)animated;
 - (void)deselectRowInTableViewAnimated:(BOOL)animated;
+- (void)changeCancelTitle:(NSString *)cancelTitle;
 
 @end

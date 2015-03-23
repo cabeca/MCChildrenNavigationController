@@ -24,10 +24,6 @@
 - (void)setupNavigationItems
 {
     self.navigationItem.title = @"Empty";
-    self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                      target:self
-                                                      action:@selector(cancel)];
 }
 
 - (void)setupView
@@ -38,6 +34,32 @@
 - (void)cancel
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)createCancelButtonWithTitle:(NSString *)cancelTitle
+{
+    UIBarButtonItem *cancelButton = nil;
+    
+    if (cancelTitle) {
+        cancelButton = [[UIBarButtonItem alloc] initWithTitle:cancelTitle
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(cancel)];
+    }
+    else {
+        cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                     target:self
+                                                                     action:@selector(cancel)];
+    }
+    
+    self.navigationItem.rightBarButtonItem = cancelButton;
+}
+
+#pragma mark - Public
+
+- (void)changeCancelTitle:(NSString *)cancelTitle
+{
+    [self createCancelButtonWithTitle:cancelTitle];
 }
 
 @end

@@ -53,5 +53,7 @@ typedef void (^configureTableHeaderViewBlock)(MCTableHeaderViewButton *button, B
 - (void)highlightSelectedNodeAnimated:(BOOL)animated;
 - (void)unhighlightSelectedNodeAnimated:(BOOL)animated;
 
+- (void)changeChildrensCancelTitle:(NSString *)cancelTitle;
+
 @end
 

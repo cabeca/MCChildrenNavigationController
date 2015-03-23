@@ -10,4 +10,6 @@
 
 @interface MCEmptyViewController : UIViewController
 
+- (void)changeCancelTitle:(NSString *)cancelTitle;
+
 @end
