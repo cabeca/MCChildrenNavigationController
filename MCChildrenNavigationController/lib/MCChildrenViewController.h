@@ -34,5 +34,6 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 
 - (void)selectRowInTableViewAnimated:(BOOL)animated;
 - (void)deselectRowInTableViewAnimated:(BOOL)animated;
+- (void)changeCancelTitle:(NSString *)cancelTitle;
 
 @end

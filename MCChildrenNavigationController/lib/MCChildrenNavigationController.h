@@ -59,4 +59,6 @@ typedef void (^configureSpecialRootFeatureButtonBlock)(MCTableHeaderViewButton *
 - (void)highlightSelectedNodeAnimated:(BOOL)animated;
 - (void)unhighlightSelectedNodeAnimated:(BOOL)animated;
 
+- (void)changeChildrensCancelTitle:(NSString *)cancelTitle;
+
 @end

@@ -57,6 +57,11 @@
 
 #pragma mark - Public
 
+- (void)changeCancelTitle:(NSString *)cancelTitle
+{
+    [self createCancelButtonWithTitle:cancelTitle];
+}
+
 - (void)selectRowInTableViewAnimated:(BOOL)animated
 {
     NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
@@ -227,10 +232,25 @@
 - (void)setupNavigationItems
 {
     self.navigationItem.title = self.node.label;
-    self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                      target:self
-                                                      action:@selector(cancel)];
+}
+
+- (void)createCancelButtonWithTitle:(NSString *)cancelTitle
+{
+    UIBarButtonItem *cancelButton = nil;
+    
+    if (cancelTitle) {
+        cancelButton = [[UIBarButtonItem alloc] initWithTitle:cancelTitle
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(cancel)];
+    }
+    else {
+        cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                     target:self
+                                                                     action:@selector(cancel)];
+    }
+    
+    self.navigationItem.rightBarButtonItem = cancelButton;
 }
 
 - (void)cancel

@@ -12,6 +12,7 @@
 
 @interface MCChildrenNavigationController ()
 @property (strong, nonatomic) id<MCChildrenCollection> selectedNodeCache;
+@property (strong, nonatomic) NSString *cancelButtonTitle;
 @end
 
 @implementation MCChildrenNavigationController
@@ -109,6 +110,7 @@
 - (void)pushEmptyViewController
 {
     MCEmptyViewController *emptyViewController = [[MCEmptyViewController alloc] init];
+    [emptyViewController changeCancelTitle:self.cancelButtonTitle];
     self.configureEmptyViewControllerBlock(emptyViewController);
 
     self.viewControllers = @[emptyViewController];
@@ -156,6 +158,7 @@
         [[MCChildrenViewController alloc] initWithNode:node level:level index:index];
 
     childrenViewController.delegate = self;
+    [childrenViewController changeCancelTitle:self.cancelButtonTitle];
     childrenViewController.configureTableViewBlock = self.configureTableViewBlock;
     childrenViewController.configureTableViewCellBlock = self.configureTableViewCellBlock;
     childrenViewController.configureAllNodeSelectionButtonBlock = self.configureAllNodeSelectionButtonBlock;
@@ -284,6 +287,24 @@
     self.specialRootFeatureSelected = YES;
     self.selectedNodeIndexPath = nil;
     self.selectedSpecialRootFeatureBlock();
+}
+
+#pragma mark - Changing the cancel title
+
+- (void)changeChildrensCancelTitle:(NSString *)cancelTitle
+{
+    self.cancelButtonTitle = cancelTitle;
+    
+    for (id viewController in self.viewControllers) {
+        if ([viewController isKindOfClass:[MCChildrenViewController class]]) {
+            MCChildrenViewController *vc = (MCChildrenViewController *)viewController;
+            [vc changeCancelTitle:self.cancelButtonTitle];
+        }
+        else if ([viewController isKindOfClass:[MCEmptyViewController class]]) {
+            MCEmptyViewController *vc = (MCEmptyViewController *)viewController;
+            [vc changeCancelTitle:self.cancelButtonTitle];
+        }
+    }
 }
 
 @end
